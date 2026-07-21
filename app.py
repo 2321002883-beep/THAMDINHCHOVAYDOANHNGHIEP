@@ -733,59 +733,114 @@ if menu == "🏠 Tài sản bảo đảm":
                 )
 
 
-# =========================================================
-# 12. KẾT QUẢ THẨM ĐỊNH
-# =========================================================
+st.subheader("🎯 KẾT QUẢ THẨM ĐỊNH")
 
-if menu == "📊 Kết quả thẩm định":
+# ==========================
+# 1. XÁC ĐỊNH KẾT QUẢ TỪNG TIÊU CHÍ
+# ==========================
 
-    st.header(
-        "📊 KẾT QUẢ THẨM ĐỊNH"
+ket_qua = []
+
+# LNST
+if LNST > 0:
+    ket_qua.append(("LNST", "Đạt", "Doanh nghiệp có lợi nhuận sau thuế dương"))
+else:
+    ket_qua.append(("LNST", "Không đạt", "Doanh nghiệp đang bị lỗ"))
+
+# ROA
+if ROA > 0:
+    ket_qua.append(("ROA", "Đạt", f"ROA = {ROA:.2f}%"))
+else:
+    ket_qua.append(("ROA", "Không đạt", f"ROA = {ROA:.2f}%"))
+
+# ROE
+if ROE > 0:
+    ket_qua.append(("ROE", "Đạt", f"ROE = {ROE:.2f}%"))
+else:
+    ket_qua.append(("ROE", "Không đạt", f"ROE = {ROE:.2f}%"))
+
+# Tỷ lệ nợ
+if ty_le_no <= 70:
+    ket_qua.append(("Tỷ lệ nợ", "Đạt", f"{ty_le_no:.2f}%"))
+else:
+    ket_qua.append(("Tỷ lệ nợ", "Không đạt", f"{ty_le_no:.2f}% - Nợ cao"))
+
+# LTV
+if LTV <= 70:
+    ket_qua.append(("LTV", "Đạt", f"{LTV:.2f}%"))
+else:
+    ket_qua.append(("LTV", "Không đạt", f"{LTV:.2f}% - Vượt ngưỡng"))
+
+# ==========================
+# 2. HIỂN THỊ BẢNG KẾT QUẢ
+# ==========================
+
+df_ket_qua = pd.DataFrame(
+    ket_qua,
+    columns=["Tiêu chí", "Kết quả", "Đánh giá"]
+)
+
+st.dataframe(
+    df_ket_qua,
+    use_container_width=True,
+    hide_index=True
+)
+
+# ==========================
+# 3. TỔNG HỢP KẾT QUẢ
+# ==========================
+
+so_tieu_chi_dat = sum(
+    1 for item in ket_qua if item[1] == "Đạt"
+)
+
+tong_tieu_chi = len(ket_qua)
+
+# ==========================
+# 4. KẾT LUẬN
+# ==========================
+
+if so_tieu_chi_dat == tong_tieu_chi:
+
+    st.success("🟢 ĐỀ XUẤT CHO VAY")
+
+    st.write(
+        f"Doanh nghiệp đạt {so_tieu_chi_dat}/{tong_tieu_chi} "
+        "tiêu chí phân tích tài chính."
     )
 
-    st.subheader(
-        "🎯 Mô hình đánh giá"
+    st.info(
+        "Kết luận: Hồ sơ có thể được xem xét cấp tín dụng "
+        "và chuyển sang bước thẩm định chi tiết."
     )
 
-    st.write("""
-    Hệ thống có thể tổng hợp các nhóm tiêu chí:
+elif so_tieu_chi_dat >= tong_tieu_chi * 0.6:
 
-    **Nhóm 1 – Điều kiện vay vốn theo quy định:**
+    st.warning("🟡 CẦN THẨM ĐỊNH BỔ SUNG")
 
-    - Tư cách pháp lý của doanh nghiệp.
-    - Mục đích vay hợp pháp.
-    - Phương án sử dụng vốn khả thi.
-    - Khả năng tài chính để trả nợ.
-    - Cam kết sử dụng vốn đúng mục đích.
-    - Cam kết hoàn trả nợ đầy đủ, đúng hạn.
+    st.write(
+        f"Doanh nghiệp đạt {so_tieu_chi_dat}/{tong_tieu_chi} "
+        "tiêu chí."
+    )
 
-    **Nhóm 2 – Phân tích tín dụng hỗ trợ:**
+    st.info(
+        "Kết luận: Cần xem xét thêm dòng tiền, khả năng trả nợ, "
+        "lịch sử tín dụng và phương án sử dụng vốn."
+    )
 
-    - LNST.
-    - ROA.
-    - ROE.
-    - Tỷ lệ nợ.
-    - Dòng tiền.
-    - Khả năng trả nợ.
-    - LTV.
-    - Giá trị tài sản bảo đảm.
-    """)
+else:
 
-    st.warning("""
-    ⚠️ Lưu ý: ROA, ROE, tỷ lệ nợ và LTV không phải là
-    các điều kiện pháp lý bắt buộc chung để doanh nghiệp
-    được vay vốn. Đây là các chỉ tiêu hỗ trợ phân tích
-    và có thể được ngân hàng sử dụng theo chính sách tín dụng
-    và mô hình quản trị rủi ro của mình.
-    """)
+    st.error("🔴 KHÔNG ĐỀ XUẤT CHO VAY")
 
-    st.info("""
-    💡 **Kết luận:** Việc đáp ứng điều kiện pháp lý chỉ là
-    bước đầu. Quyết định cho vay còn phụ thuộc vào kết quả
-    thẩm định tín dụng, khả năng trả nợ, mục đích sử dụng vốn,
-    hồ sơ tài chính, lịch sử tín dụng, tài sản bảo đảm (nếu có)
-    và chính sách của tổ chức tín dụng.
-    """)
+    st.write(
+        f"Doanh nghiệp chỉ đạt {so_tieu_chi_dat}/{tong_tieu_chi} "
+        "tiêu chí phân tích."
+    )
+
+    st.info(
+        "Kết luận: Hồ sơ chưa đáp ứng các tiêu chí tài chính "
+        "để đề xuất cấp tín dụng."
+    )
 
 
 # =========================================================
