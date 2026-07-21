@@ -3,16 +3,15 @@ import pandas as pd
 
 
 # =========================================================
-# 1. CẤU HÌNH ỨNG DỤNG
+# 1. CẤU HÌNH
 # =========================================================
 
 st.set_page_config(
-    page_title="Thẩm định tín dụng doanh nghiệp",
+    page_title="HỆ THỐNG THẨM ĐỊNH CHO VAY DOANH NGHIỆP",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
 
 # =========================================================
 # 2. SESSION STATE
