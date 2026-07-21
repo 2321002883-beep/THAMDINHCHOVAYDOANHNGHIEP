@@ -1686,4 +1686,3 @@ st.divider()
 st.caption(
     "🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP"
 )
-```
