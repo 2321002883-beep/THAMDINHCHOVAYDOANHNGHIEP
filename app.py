@@ -837,10 +837,10 @@ elif menu == "🏠 Tài sản bảo đảm":
 
 elif menu == "📊 Kết quả thẩm định":
 
-    st.title(
-        "📊 KẾT QUẢ THẨM ĐỊNH"
-    )
-
+   st.metric(
+    "📊 Kết quả thẩm định",
+    "Xem kết quả"
+)
     st.write(
         "Hệ thống tổng hợp kết quả từ các nhóm tiêu chí."
     )
