@@ -3,11 +3,11 @@ import pandas as pd
 
 
 # =========================================================
-# 1. CẤU HÌNH ỨNG DỤNG
+# 1. CẤU HÌNH
 # =========================================================
 
 st.set_page_config(
-    page_title="CreditCheck - Thẩm định cho vay doanh nghiệp",
+    page_title="Hệ thống thẩm định cho vay doanh nghiệp",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -15,381 +15,147 @@ st.set_page_config(
 
 
 # =========================================================
-# 2. KHỞI TẠO SESSION STATE
+# 2. SESSION STATE
 # =========================================================
 
-default_values = {
+if "ten_dn" not in st.session_state:
+    st.session_state.ten_dn = ""
 
-    # Hồ sơ doanh nghiệp
-    "ten_dn": "",
-    "ma_so": "",
-    "nganh_nghe": "Sản xuất",
-    "thoi_gian_hd": 3,
+if "ma_so" not in st.session_state:
+    st.session_state.ma_so = ""
 
-    # Điều kiện vay
-    "nang_luc_phap_ly": "Chưa đánh giá",
-    "muc_dich": "Chưa đánh giá",
-    "co_phuong_an": "Chưa đánh giá",
-    "phuong_an_kha_thi": "Chưa đánh giá",
-    "kha_nang_tra_no": "Chưa đánh giá",
-    "dung_muc_dich": "Chưa đánh giá",
-    "tra_no_dung_han": "Chưa đánh giá",
+if "nganh_nghe" not in st.session_state:
+    st.session_state.nganh_nghe = "Sản xuất"
 
-    # Tài chính
-    "doanh_thu": 0.0,
-    "lnst": 0.0,
-    "tong_tai_san": 0.0,
-    "von_chu_so_huu": 0.0,
-    "no_phai_tra": 0.0,
-    "dong_tien": 0.0,
+if "thoi_gian_hd" not in st.session_state:
+    st.session_state.thoi_gian_hd = 3
 
-    "roa": None,
-    "roe": None,
-    "ty_le_no": None,
+if "nang_luc_phap_ly" not in st.session_state:
+    st.session_state.nang_luc_phap_ly = "Chưa đánh giá"
 
-    # Khoản vay
-    "so_tien_vay": 0.0,
-    "thoi_gian_vay": 12,
-    "lai_suat": 0.0,
-    "nghia_vu_no_cu": 0.0,
-    "tong_nghia_vu": None,
+if "muc_dich" not in st.session_state:
+    st.session_state.muc_dich = "Chưa đánh giá"
 
-    # TSĐB
-    "co_tsdb": "Chưa đánh giá",
-    "gia_tri_tsdb": 0.0,
-    "ltv": None,
+if "co_phuong_an" not in st.session_state:
+    st.session_state.co_phuong_an = "Chưa đánh giá"
 
-    # Kết quả
-    "diem_tham_dinh": None
-}
+if "phuong_an_kha_thi" not in st.session_state:
+    st.session_state.phuong_an_kha_thi = "Chưa đánh giá"
+
+if "kha_nang_tra_no" not in st.session_state:
+    st.session_state.kha_nang_tra_no = "Chưa đánh giá"
+
+if "dung_muc_dich" not in st.session_state:
+    st.session_state.dung_muc_dich = "Chưa đánh giá"
+
+if "tra_no_dung_han" not in st.session_state:
+    st.session_state.tra_no_dung_han = "Chưa đánh giá"
 
 
-for key, value in default_values.items():
+# Tài chính
 
-    if key not in st.session_state:
+if "doanh_thu" not in st.session_state:
+    st.session_state.doanh_thu = 0.0
 
-        st.session_state[key] = value
+if "lnst" not in st.session_state:
+    st.session_state.lnst = 0.0
+
+if "tong_tai_san" not in st.session_state:
+    st.session_state.tong_tai_san = 0.0
+
+if "von_chu_so_huu" not in st.session_state:
+    st.session_state.von_chu_so_huu = 0.0
+
+if "no_phai_tra" not in st.session_state:
+    st.session_state.no_phai_tra = 0.0
+
+if "dong_tien" not in st.session_state:
+    st.session_state.dong_tien = 0.0
+
+
+if "roa" not in st.session_state:
+    st.session_state.roa = None
+
+if "roe" not in st.session_state:
+    st.session_state.roe = None
+
+if "ty_le_no" not in st.session_state:
+    st.session_state.ty_le_no = None
+
+
+# Khoản vay
+
+if "so_tien_vay" not in st.session_state:
+    st.session_state.so_tien_vay = 0.0
+
+if "thoi_gian_vay" not in st.session_state:
+    st.session_state.thoi_gian_vay = 12
+
+if "lai_suat" not in st.session_state:
+    st.session_state.lai_suat = 0.0
+
+if "nghia_vu_no_cu" not in st.session_state:
+    st.session_state.nghia_vu_no_cu = 0.0
+
+if "tong_nghia_vu" not in st.session_state:
+    st.session_state.tong_nghia_vu = None
+
+
+# Tài sản bảo đảm
+
+if "co_tsdb" not in st.session_state:
+    st.session_state.co_tsdb = "Chưa đánh giá"
+
+if "gia_tri_tsdb" not in st.session_state:
+    st.session_state.gia_tri_tsdb = 0.0
+
+if "ltv" not in st.session_state:
+    st.session_state.ltv = None
 
 
 # =========================================================
-# 3. CSS - GIAO DIỆN
+# 3. CSS ĐƠN GIẢN
 # =========================================================
 
 st.markdown(
     """
     <style>
 
-    /* =========================================
-       NỀN CHÍNH
-    ========================================= */
-
     .stApp {
-
-        background:
-        linear-gradient(
-            135deg,
-            #f8fafc 0%,
-            #eef4ff 100%
-        );
-
+        background-color: #f4f7fb;
     }
-
-
-    /* =========================================
-       SIDEBAR
-    ========================================= */
 
     section[data-testid="stSidebar"] {
-
-        background:
-        linear-gradient(
-            180deg,
-            #071a3d 0%,
-            #0b2d63 50%,
-            #0f4c81 100%
-        );
-
+        background-color: #0b1f3a;
     }
-
 
     section[data-testid="stSidebar"] * {
-
-        color: white !important;
-
-    }
-
-
-    /* =========================================
-       HERO HEADER
-    ========================================= */
-
-    .hero {
-
-        background:
-        linear-gradient(
-            135deg,
-            #071a3d 0%,
-            #0b3d91 50%,
-            #1677ff 100%
-        );
-
-        padding: 38px 45px;
-
-        border-radius: 25px;
-
         color: white;
-
-        margin-bottom: 30px;
-
-        box-shadow:
-        0 15px 40px
-        rgba(15, 76, 129, 0.25);
-
     }
 
-
-    .hero-title {
-
-        font-size: 34px;
-
-        font-weight: 800;
-
-        line-height: 1.35;
-
-        color: white;
-
+    h1 {
+        color: #0b1f3a;
     }
 
-
-    .hero-sub {
-
-        font-size: 16px;
-
-        margin-top: 12px;
-
-        color: #dbeafe;
-
-        line-height: 1.6;
-
+    h2 {
+        color: #123c69;
     }
 
-
-    /* =========================================
-       CARD
-    ========================================= */
-
-    .custom-card {
-
-        background: white;
-
-        padding: 25px;
-
-        border-radius: 20px;
-
-        border: 1px solid #e2e8f0;
-
-        box-shadow:
-        0 8px 25px
-        rgba(15, 23, 42, 0.07);
-
-        margin-bottom: 20px;
-
+    h3 {
+        color: #164e7a;
     }
 
-
-    /* =========================================
-       KPI
-    ========================================= */
-
-    .kpi-card {
-
-        background: white;
-
-        padding: 22px;
-
-        border-radius: 20px;
-
-        border: 1px solid #e2e8f0;
-
-        box-shadow:
-        0 8px 25px
-        rgba(15, 23, 42, 0.07);
-
-        text-align: center;
-
-        min-height: 125px;
-
+    div[data-testid="stMetric"] {
+        background-color: white;
+        border: 1px solid #dbe4ef;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0px 3px 10px rgba(0,0,0,0.05);
     }
 
-
-    .kpi-icon {
-
-        font-size: 28px;
-
-    }
-
-
-    .kpi-title {
-
-        color: #64748b;
-
-        font-size: 13px;
-
-        font-weight: 700;
-
-        margin-top: 5px;
-
-    }
-
-
-    .kpi-value {
-
-        color: #0f172a;
-
-        font-size: 27px;
-
-        font-weight: 800;
-
-        margin-top: 5px;
-
-    }
-
-
-    /* =========================================
-       SECTION TITLE
-    ========================================= */
-
-    .section-title {
-
-        font-size: 21px;
-
-        font-weight: 800;
-
-        color: #0f172a;
-
-        margin-top: 20px;
-
-        margin-bottom: 15px;
-
-    }
-
-
-    /* =========================================
-       BUTTON
-    ========================================= */
-
-    .stButton > button {
-
-        width: 100%;
-
-        height: 50px;
-
-        border-radius: 13px;
-
-        border: none;
-
-        font-size: 15px;
-
-        font-weight: 800;
-
-        color: white;
-
-        background:
-        linear-gradient(
-            135deg,
-            #1677ff,
-            #0047ab
-        );
-
-        box-shadow:
-        0 7px 20px
-        rgba(22, 119, 255, 0.25);
-
-        transition: 0.2s;
-
-    }
-
-
-    .stButton > button:hover {
-
-        transform: translateY(-2px);
-
-        box-shadow:
-        0 10px 25px
-        rgba(22, 119, 255, 0.35);
-
-    }
-
-
-    /* =========================================
-       RESULT BOX
-    ========================================= */
-
-    .result-green {
-
-        background: #ecfdf5;
-
-        border-left: 7px solid #10b981;
-
-        padding: 25px;
-
-        border-radius: 17px;
-
-        box-shadow:
-        0 5px 20px
-        rgba(16, 185, 129, 0.08);
-
-    }
-
-
-    .result-yellow {
-
-        background: #fffbeb;
-
-        border-left: 7px solid #f59e0b;
-
-        padding: 25px;
-
-        border-radius: 17px;
-
-        box-shadow:
-        0 5px 20px
-        rgba(245, 158, 11, 0.08);
-
-    }
-
-
-    .result-red {
-
-        background: #fef2f2;
-
-        border-left: 7px solid #ef4444;
-
-        padding: 25px;
-
-        border-radius: 17px;
-
-        box-shadow:
-        0 5px 20px
-        rgba(239, 68, 68, 0.08);
-
-    }
-
-
-    /* =========================================
-       FOOTER
-    ========================================= */
-
-    .footer {
-
-        text-align: center;
-
-        padding: 30px;
-
-        color: #64748b;
-
-        font-size: 13px;
-
+    .stButton button {
+        border-radius: 10px;
+        font-weight: bold;
     }
 
     </style>
@@ -404,46 +170,17 @@ st.markdown(
 
 with st.sidebar:
 
-    st.markdown(
-        """
-        <div style="
-            text-align:center;
-            padding:25px 5px 15px 5px;
-        ">
+    st.title("🏦 CREDITCHECK")
 
-            <div style="
-                font-size:42px;
-            ">
-                🏦
-            </div>
-
-            <div style="
-                font-size:23px;
-                font-weight:800;
-                margin-top:5px;
-            ">
-                CREDITCHECK
-            </div>
-
-            <div style="
-                font-size:11px;
-                opacity:0.8;
-                margin-top:5px;
-            ">
-                BUSINESS CREDIT APPRAISAL
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.caption(
+        "Hệ thống hỗ trợ thẩm định "
+        "cho vay doanh nghiệp"
     )
-
 
     st.divider()
 
-
     menu = st.radio(
-        "MENU CHỨC NĂNG",
+        "CHỨC NĂNG",
         [
             "🏠 Tổng quan",
             "🏢 Hồ sơ doanh nghiệp",
@@ -455,214 +192,87 @@ with st.sidebar:
         ]
     )
 
-
     st.divider()
 
-
-    st.markdown(
-        "### 📈 TIẾN ĐỘ HỒ SƠ"
-    )
-
-
-    completed = 0
-
-
-    if st.session_state.ten_dn:
-
-        completed += 1
-
-
-    if st.session_state.roa is not None:
-
-        completed += 1
-
-
-    if st.session_state.tong_nghia_vu is not None:
-
-        completed += 1
-
-
-    if (
-        st.session_state.ltv is not None
-        or st.session_state.co_tsdb == "Không"
-    ):
-
-        completed += 1
-
-
-    progress = completed / 4
-
-
-    st.progress(progress)
-
-
-    st.caption(
-        f"Hoàn thành {completed}/4 nhóm thông tin"
-    )
-
-
-    st.divider()
-
-
-    st.caption(
-        "🏦 CREDITCHECK VERSION 2.0"
-    )
-
-
-    st.caption(
-        "© 2026"
-    )
+    st.caption("Phiên bản 2.0")
+    st.caption("© 2026")
 
 
 # =========================================================
-# 5. HEADER
-# =========================================================
-
-st.markdown(
-    """
-    <div class="hero">
-
-        <div class="hero-title">
-            🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH
-            <br>
-            CHO VAY DOANH NGHIỆP
-        </div>
-
-        <div class="hero-sub">
-            Phân tích tài chính • Đánh giá khả năng trả nợ
-            • Tài sản bảo đảm • Hỗ trợ ra quyết định tín dụng
-        </div>
-
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# =========================================================
-# 6. TỔNG QUAN
+# 5. TRANG TỔNG QUAN
 # =========================================================
 
 if menu == "🏠 Tổng quan":
 
-    st.markdown(
-        "## 👋 Chào mừng bạn đến với hệ thống"
+    st.title(
+        "🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH"
     )
 
+    st.header(
+        "CHO VAY DOANH NGHIỆP"
+    )
 
     st.write(
+        "Phân tích tài chính • "
+        "Đánh giá khả năng trả nợ • "
+        "Tài sản bảo đảm • "
+        "Hỗ trợ ra quyết định tín dụng"
+    )
+
+    st.divider()
+
+    st.subheader(
+        "👋 Chào mừng bạn đến với hệ thống"
+    )
+
+    st.info(
         "Hệ thống hỗ trợ cán bộ tín dụng và người học "
         "thực hiện đánh giá sơ bộ hồ sơ vay vốn doanh nghiệp."
     )
 
-
     st.divider()
 
-
-    # KPI
+    st.subheader(
+        "📊 CÁC NHÓM ĐÁNH GIÁ"
+    )
 
     c1, c2, c3, c4 = st.columns(4)
-
 
     with c1:
 
-        st.markdown(
-            """
-            <div class="kpi-card">
-
-                <div class="kpi-icon">🏢</div>
-
-                <div class="kpi-title">
-                    HỒ SƠ DOANH NGHIỆP
-                </div>
-
-                <div class="kpi-value">
-                    01
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "🏢 Hồ sơ doanh nghiệp",
+            "01"
         )
-
 
     with c2:
 
-        st.markdown(
-            """
-            <div class="kpi-card">
-
-                <div class="kpi-icon">💰</div>
-
-                <div class="kpi-title">
-                    PHÂN TÍCH TÀI CHÍNH
-                </div>
-
-                <div class="kpi-value">
-                    03
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "💰 Phân tích tài chính",
+            "03"
         )
-
 
     with c3:
 
-        st.markdown(
-            """
-            <div class="kpi-card">
-
-                <div class="kpi-icon">💳</div>
-
-                <div class="kpi-title">
-                    THÔNG TIN KHOẢN VAY
-                </div>
-
-                <div class="kpi-value">
-                    01
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "💳 Thông tin khoản vay",
+            "01"
         )
-
 
     with c4:
 
-        st.markdown(
-            """
-            <div class="kpi-card">
-
-                <div class="kpi-icon">📊</div>
-
-                <div class="kpi-title">
-                    KẾT QUẢ THẨM ĐỊNH
-                </div>
-
-                <div class="kpi-value">
-                    AI
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.metric(
+            "📊 Kết quả thẩm định",
+            "AI"
         )
 
+    st.divider()
 
-    st.write("")
-
-
-    st.markdown(
-        '<div class="section-title">🚀 QUY TRÌNH THẨM ĐỊNH</div>',
-        unsafe_allow_html=True
+    st.subheader(
+        "🚀 QUY TRÌNH THẨM ĐỊNH"
     )
 
-
     c1, c2, c3, c4 = st.columns(4)
-
 
     with c1:
 
@@ -670,13 +280,12 @@ if menu == "🏠 Tổng quan":
             """
             **01**
 
-            🏢 **HỒ SƠ DOANH NGHIỆP**
+            🏢 HỒ SƠ DOANH NGHIỆP
 
             Nhập thông tin pháp lý,
             ngành nghề và thời gian hoạt động.
             """
         )
-
 
     with c2:
 
@@ -684,13 +293,12 @@ if menu == "🏠 Tổng quan":
             """
             **02**
 
-            💰 **PHÂN TÍCH TÀI CHÍNH**
+            💰 PHÂN TÍCH TÀI CHÍNH
 
             Phân tích LNST,
             ROA, ROE và tỷ lệ nợ.
             """
         )
-
 
     with c3:
 
@@ -698,13 +306,12 @@ if menu == "🏠 Tổng quan":
             """
             **03**
 
-            💳 **KHẢ NĂNG TRẢ NỢ**
+            💳 KHẢ NĂNG TRẢ NỢ
 
             Đánh giá nghĩa vụ trả nợ
             và dòng tiền doanh nghiệp.
             """
         )
-
 
     with c4:
 
@@ -712,60 +319,48 @@ if menu == "🏠 Tổng quan":
             """
             **04**
 
-            📊 **KẾT QUẢ**
+            📊 KẾT QUẢ
 
             Tổng hợp điểm,
             phân loại và đề xuất.
             """
         )
 
+    st.divider()
 
     st.warning(
-        "⚠️ Kết quả chỉ mang tính chất hỗ trợ thẩm định, "
-        "không thay thế quyết định tín dụng thực tế."
+        "⚠️ Kết quả của ứng dụng chỉ mang tính chất hỗ trợ "
+        "thẩm định, không thay thế quyết định tín dụng thực tế."
     )
 
 
 # =========================================================
-# 7. HỒ SƠ DOANH NGHIỆP
+# 6. HỒ SƠ DOANH NGHIỆP
 # =========================================================
 
 elif menu == "🏢 Hồ sơ doanh nghiệp":
 
     st.title(
-        "🏢 Hồ sơ doanh nghiệp"
+        "🏢 HỒ SƠ DOANH NGHIỆP"
     )
 
-
-    st.caption(
-        "Nhập thông tin cơ bản của doanh nghiệp cần thẩm định."
+    st.subheader(
+        "📋 Thông tin pháp lý"
     )
-
-
-    st.markdown(
-        '<div class="section-title">📋 THÔNG TIN PHÁP LÝ</div>',
-        unsafe_allow_html=True
-    )
-
 
     c1, c2 = st.columns(2)
-
 
     with c1:
 
         st.session_state.ten_dn = st.text_input(
-            "Tên doanh nghiệp *",
-            value=st.session_state.ten_dn,
-            placeholder="Ví dụ: Công ty TNHH ABC"
+            "Tên doanh nghiệp",
+            value=st.session_state.ten_dn
         )
-
 
         st.session_state.ma_so = st.text_input(
             "Mã số doanh nghiệp",
-            value=st.session_state.ma_so,
-            placeholder="Nhập mã số doanh nghiệp"
+            value=st.session_state.ma_so
         )
-
 
     with c2:
 
@@ -783,19 +378,15 @@ elif menu == "🏢 Hồ sơ doanh nghiệp":
             ]
         )
 
-
         st.session_state.thoi_gian_hd = st.number_input(
             "Thời gian hoạt động (năm)",
             min_value=0,
             value=st.session_state.thoi_gian_hd
         )
 
-
-    st.markdown(
-        '<div class="section-title">💳 MỤC ĐÍCH VAY</div>',
-        unsafe_allow_html=True
+    st.subheader(
+        "💳 Mục đích vay"
     )
-
 
     muc_dich_vay = st.selectbox(
         "Mục đích sử dụng vốn",
@@ -809,12 +400,9 @@ elif menu == "🏢 Hồ sơ doanh nghiệp":
         ]
     )
 
-
     phuong_an = st.text_area(
-        "Mô tả phương án sử dụng vốn",
-        placeholder="Nhập mô tả phương án sử dụng vốn..."
+        "Mô tả phương án sử dụng vốn"
     )
-
 
     if st.button(
         "💾 LƯU HỒ SƠ"
@@ -823,42 +411,36 @@ elif menu == "🏢 Hồ sơ doanh nghiệp":
         if st.session_state.ten_dn == "":
 
             st.error(
-                "❌ Vui lòng nhập tên doanh nghiệp."
+                "Vui lòng nhập tên doanh nghiệp."
             )
 
         else:
 
             st.success(
-                f"✅ Đã lưu hồ sơ: "
-                f"{st.session_state.ten_dn}"
+                "Đã lưu thông tin doanh nghiệp."
             )
 
 
 # =========================================================
-# 8. ĐIỀU KIỆN VAY VỐN
+# 7. ĐIỀU KIỆN VAY VỐN
 # =========================================================
 
 elif menu == "⚖️ Điều kiện vay vốn":
 
     st.title(
-        "⚖️ Kiểm tra điều kiện vay vốn"
+        "⚖️ KIỂM TRA ĐIỀU KIỆN VAY VỐN"
     )
-
 
     st.info(
         "Các tiêu chí dưới đây được sử dụng để kiểm tra sơ bộ "
-        "theo mô hình hỗ trợ thẩm định."
+        "điều kiện vay vốn."
     )
 
-
-    st.markdown(
-        '<div class="section-title">1️⃣ ĐIỀU KIỆN CƠ BẢN</div>',
-        unsafe_allow_html=True
+    st.subheader(
+        "1️⃣ Điều kiện cơ bản"
     )
-
 
     c1, c2 = st.columns(2)
-
 
     with c1:
 
@@ -871,7 +453,6 @@ elif menu == "⚖️ Điều kiện vay vốn":
             ]
         )
 
-
         st.session_state.muc_dich = st.selectbox(
             "Mục đích vay hợp pháp?",
             [
@@ -881,7 +462,6 @@ elif menu == "⚖️ Điều kiện vay vốn":
             ]
         )
 
-
         st.session_state.co_phuong_an = st.selectbox(
             "Có phương án sử dụng vốn?",
             [
@@ -890,7 +470,6 @@ elif menu == "⚖️ Điều kiện vay vốn":
                 "Không"
             ]
         )
-
 
     with c2:
 
@@ -903,7 +482,6 @@ elif menu == "⚖️ Điều kiện vay vốn":
             ]
         )
 
-
         st.session_state.kha_nang_tra_no = st.selectbox(
             "Có khả năng tài chính trả nợ?",
             [
@@ -913,15 +491,11 @@ elif menu == "⚖️ Điều kiện vay vốn":
             ]
         )
 
-
-    st.markdown(
-        '<div class="section-title">2️⃣ CAM KẾT KHÁCH HÀNG</div>',
-        unsafe_allow_html=True
+    st.subheader(
+        "2️⃣ Cam kết của khách hàng"
     )
 
-
     c1, c2 = st.columns(2)
-
 
     with c1:
 
@@ -934,7 +508,6 @@ elif menu == "⚖️ Điều kiện vay vốn":
             ]
         )
 
-
     with c2:
 
         st.session_state.tra_no_dung_han = st.selectbox(
@@ -946,36 +519,30 @@ elif menu == "⚖️ Điều kiện vay vốn":
             ]
         )
 
-
     st.success(
-        "✅ Thông tin điều kiện vay đã được cập nhật."
+        "Thông tin điều kiện vay vốn đã được cập nhật."
     )
 
 
 # =========================================================
-# 9. PHÂN TÍCH TÀI CHÍNH
+# 8. PHÂN TÍCH TÀI CHÍNH
 # =========================================================
 
 elif menu == "💰 Phân tích tài chính":
 
     st.title(
-        "💰 Phân tích tài chính"
+        "💰 PHÂN TÍCH TÀI CHÍNH"
     )
-
 
     st.caption(
-        "Đơn vị tính: triệu đồng"
+        "Đơn vị: triệu đồng"
     )
 
-
-    st.markdown(
-        '<div class="section-title">📊 NHẬP SỐ LIỆU</div>',
-        unsafe_allow_html=True
+    st.subheader(
+        "📊 Nhập số liệu tài chính"
     )
-
 
     c1, c2 = st.columns(2)
-
 
     with c1:
 
@@ -985,19 +552,16 @@ elif menu == "💰 Phân tích tài chính":
             value=st.session_state.doanh_thu
         )
 
-
         st.session_state.lnst = st.number_input(
             "Lợi nhuận sau thuế (LNST)",
             value=st.session_state.lnst
         )
-
 
         st.session_state.tong_tai_san = st.number_input(
             "Tổng tài sản",
             min_value=0.0,
             value=st.session_state.tong_tai_san
         )
-
 
     with c2:
 
@@ -1007,19 +571,16 @@ elif menu == "💰 Phân tích tài chính":
             value=st.session_state.von_chu_so_huu
         )
 
-
         st.session_state.no_phai_tra = st.number_input(
             "Nợ phải trả",
             min_value=0.0,
             value=st.session_state.no_phai_tra
         )
 
-
         st.session_state.dong_tien = st.number_input(
             "Dòng tiền từ hoạt động kinh doanh",
             value=st.session_state.dong_tien
         )
-
 
     if st.button(
         "📊 PHÂN TÍCH TÀI CHÍNH"
@@ -1028,13 +589,13 @@ elif menu == "💰 Phân tích tài chính":
         if st.session_state.tong_tai_san <= 0:
 
             st.error(
-                "❌ Tổng tài sản phải lớn hơn 0."
+                "Tổng tài sản phải lớn hơn 0."
             )
 
         elif st.session_state.von_chu_so_huu <= 0:
 
             st.error(
-                "❌ Vốn chủ sở hữu phải lớn hơn 0."
+                "Vốn chủ sở hữu phải lớn hơn 0."
             )
 
         else:
@@ -1045,13 +606,11 @@ elif menu == "💰 Phân tích tài chính":
                 * 100
             )
 
-
             st.session_state.roe = (
                 st.session_state.lnst
                 / st.session_state.von_chu_so_huu
                 * 100
             )
-
 
             st.session_state.ty_le_no = (
                 st.session_state.no_phai_tra
@@ -1059,43 +618,34 @@ elif menu == "💰 Phân tích tài chính":
                 * 100
             )
 
-
             st.success(
-                "✅ Đã phân tích thành công."
+                "Đã phân tích tài chính thành công."
             )
-
 
     if st.session_state.roa is not None:
 
         st.divider()
 
-
-        st.markdown(
-            '<div class="section-title">📈 KẾT QUẢ</div>',
-            unsafe_allow_html=True
+        st.subheader(
+            "📈 Kết quả phân tích"
         )
 
-
         c1, c2, c3 = st.columns(3)
-
 
         c1.metric(
             "ROA",
             f"{st.session_state.roa:.2f}%"
         )
 
-
         c2.metric(
             "ROE",
             f"{st.session_state.roe:.2f}%"
         )
 
-
         c3.metric(
-            "TỶ LỆ NỢ",
+            "Tỷ lệ nợ",
             f"{st.session_state.ty_le_no:.2f}%"
         )
-
 
         chart = pd.DataFrame(
             {
@@ -1104,7 +654,6 @@ elif menu == "💰 Phân tích tài chính":
                     "ROE",
                     "Tỷ lệ nợ"
                 ],
-
                 "Giá trị": [
                     st.session_state.roa,
                     st.session_state.roe,
@@ -1113,64 +662,54 @@ elif menu == "💰 Phân tích tài chính":
             }
         )
 
-
         st.bar_chart(
-            chart.set_index(
-                "Chỉ tiêu"
-            )
+            chart.set_index("Chỉ tiêu")
         )
 
 
 # =========================================================
-# 10. KHOẢN VAY
+# 9. THÔNG TIN KHOẢN VAY
 # =========================================================
 
 elif menu == "💳 Thông tin khoản vay":
 
     st.title(
-        "💳 Thông tin khoản vay"
+        "💳 THÔNG TIN KHOẢN VAY"
     )
-
 
     st.caption(
-        "Đơn vị tính: triệu đồng"
+        "Đơn vị: triệu đồng"
     )
 
-
     c1, c2 = st.columns(2)
-
 
     with c1:
 
         st.session_state.so_tien_vay = st.number_input(
-            "💰 Số tiền vay",
+            "Số tiền vay",
             min_value=0.0,
             value=st.session_state.so_tien_vay
         )
 
-
         st.session_state.thoi_gian_vay = st.number_input(
-            "📅 Thời hạn vay (tháng)",
+            "Thời hạn vay (tháng)",
             min_value=1,
             value=st.session_state.thoi_gian_vay
         )
 
-
     with c2:
 
         st.session_state.lai_suat = st.number_input(
-            "📈 Lãi suất (%/năm)",
+            "Lãi suất (%/năm)",
             min_value=0.0,
             value=st.session_state.lai_suat
         )
 
-
         st.session_state.nghia_vu_no_cu = st.number_input(
-            "💳 Nghĩa vụ nợ hiện tại/tháng",
+            "Nghĩa vụ trả nợ hiện tại/tháng",
             min_value=0.0,
             value=st.session_state.nghia_vu_no_cu
         )
-
 
     if st.button(
         "💳 PHÂN TÍCH KHẢ NĂNG TRẢ NỢ"
@@ -1181,7 +720,6 @@ elif menu == "💳 Thông tin khoản vay":
             / st.session_state.thoi_gian_vay
         )
 
-
         tien_lai = (
             st.session_state.so_tien_vay
             * st.session_state.lai_suat
@@ -1189,56 +727,47 @@ elif menu == "💳 Thông tin khoản vay":
             / 12
         )
 
-
         st.session_state.tong_nghia_vu = (
             st.session_state.nghia_vu_no_cu
             + tien_goc
             + tien_lai
         )
 
-
         c1, c2, c3 = st.columns(3)
-
 
         c1.metric(
             "Gốc/tháng",
             f"{tien_goc:,.2f}"
         )
 
-
         c2.metric(
             "Lãi tháng đầu",
             f"{tien_lai:,.2f}"
         )
-
 
         c3.metric(
             "Tổng nghĩa vụ/tháng",
             f"{st.session_state.tong_nghia_vu:,.2f}"
         )
 
-
         st.success(
-            "✅ Đã tính toán nghĩa vụ trả nợ."
+            "Đã tính toán nghĩa vụ trả nợ."
         )
 
 
 # =========================================================
-# 11. TÀI SẢN BẢO ĐẢM
+# 10. TÀI SẢN BẢO ĐẢM
 # =========================================================
 
 elif menu == "🏠 Tài sản bảo đảm":
 
     st.title(
-        "🏠 Tài sản bảo đảm"
+        "🏠 TÀI SẢN BẢO ĐẢM"
     )
-
 
     st.info(
-        "LTV là chỉ tiêu hỗ trợ phân tích tín dụng, "
-        "không phải điều kiện pháp lý bắt buộc chung."
+        "LTV là chỉ tiêu hỗ trợ phân tích tín dụng."
     )
-
 
     st.session_state.co_tsdb = st.selectbox(
         "Khoản vay có tài sản bảo đảm?",
@@ -1249,13 +778,11 @@ elif menu == "🏠 Tài sản bảo đảm":
         ]
     )
 
-
     st.session_state.gia_tri_tsdb = st.number_input(
-        "🏠 Giá trị tài sản bảo đảm",
+        "Giá trị tài sản bảo đảm",
         min_value=0.0,
         value=st.session_state.gia_tri_tsdb
     )
-
 
     if st.button(
         "🏠 PHÂN TÍCH TÀI SẢN BẢO ĐẢM"
@@ -1269,20 +796,17 @@ elif menu == "🏠 Tài sản bảo đảm":
                 "Khoản vay không có tài sản bảo đảm."
             )
 
-
         elif st.session_state.gia_tri_tsdb <= 0:
 
             st.error(
-                "❌ Giá trị TSĐB phải lớn hơn 0."
+                "Giá trị TSĐB phải lớn hơn 0."
             )
-
 
         elif st.session_state.so_tien_vay <= 0:
 
             st.error(
-                "❌ Vui lòng nhập số tiền vay."
+                "Vui lòng nhập số tiền vay trước."
             )
-
 
         else:
 
@@ -1292,36 +816,32 @@ elif menu == "🏠 Tài sản bảo đảm":
                 * 100
             )
 
-
             st.metric(
                 "LTV",
                 f"{st.session_state.ltv:.2f}%"
             )
 
-
             if st.session_state.ltv <= 70:
 
                 st.success(
-                    "🟢 LTV ở mức tương đối thấp."
+                    "LTV ở mức tương đối thấp."
                 )
-
 
             elif st.session_state.ltv <= 100:
 
                 st.warning(
-                    "🟡 Cần xem xét thêm chất lượng TSĐB."
+                    "Cần xem xét thêm chất lượng tài sản bảo đảm."
                 )
-
 
             else:
 
                 st.error(
-                    "🔴 Số tiền vay lớn hơn giá trị TSĐB."
+                    "Số tiền vay lớn hơn giá trị tài sản bảo đảm."
                 )
 
 
 # =========================================================
-# 12. KẾT QUẢ THẨM ĐỊNH
+# 11. KẾT QUẢ THẨM ĐỊNH
 # =========================================================
 
 elif menu == "📊 Kết quả thẩm định":
@@ -1330,38 +850,33 @@ elif menu == "📊 Kết quả thẩm định":
         "📊 KẾT QUẢ THẨM ĐỊNH"
     )
 
-
-    st.caption(
-        "Hệ thống tự động tổng hợp dữ liệu từ các bước thẩm định."
+    st.write(
+        "Hệ thống tổng hợp kết quả từ các nhóm tiêu chí."
     )
 
+    # Kiểm tra dữ liệu
 
-    if (
-        st.session_state.roa is None
-        or st.session_state.tong_nghia_vu is None
-    ):
+    if st.session_state.roa is None:
 
         st.warning(
-            "⚠️ CHƯA ĐỦ DỮ LIỆU ĐỂ ĐÁNH GIÁ."
+            "⚠️ Chưa có dữ liệu phân tích tài chính."
         )
-
 
         st.info(
-            """
-            Vui lòng hoàn thành:
-
-            **1.** Nhập và phân tích số liệu tài chính.
-
-            **2.** Nhập thông tin khoản vay.
-
-            **3.** Phân tích khả năng trả nợ.
-
-            **4.** Phân tích tài sản bảo đảm nếu có.
-
-            Sau đó quay lại mục **Kết quả thẩm định**.
-            """
+            "Vui lòng vào mục 'Phân tích tài chính' "
+            "và bấm 'Phân tích tài chính' trước."
         )
 
+    elif st.session_state.tong_nghia_vu is None:
+
+        st.warning(
+            "⚠️ Chưa có dữ liệu khoản vay."
+        )
+
+        st.info(
+            "Vui lòng vào mục 'Thông tin khoản vay' "
+            "và thực hiện phân tích khả năng trả nợ."
+        )
 
     else:
 
@@ -1371,83 +886,7 @@ elif menu == "📊 Kết quả thẩm định":
 
         diem = 0
 
-
         ket_qua = []
-
-
-        # Năng lực pháp lý
-
-        if st.session_state.nang_luc_phap_ly == "Có":
-
-            diem += 15
-
-            ket_qua.append(
-                [
-                    "Năng lực pháp lý",
-                    "Đạt",
-                    "15 điểm"
-                ]
-            )
-
-        else:
-
-            ket_qua.append(
-                [
-                    "Năng lực pháp lý",
-                    "Chưa đạt",
-                    "0 điểm"
-                ]
-            )
-
-
-        # Mục đích vay
-
-        if st.session_state.muc_dich == "Có":
-
-            diem += 10
-
-            ket_qua.append(
-                [
-                    "Mục đích vay",
-                    "Đạt",
-                    "10 điểm"
-                ]
-            )
-
-        else:
-
-            ket_qua.append(
-                [
-                    "Mục đích vay",
-                    "Chưa đạt",
-                    "0 điểm"
-                ]
-            )
-
-
-        # Phương án
-
-        if st.session_state.phuong_an_kha_thi == "Có":
-
-            diem += 10
-
-            ket_qua.append(
-                [
-                    "Phương án sử dụng vốn",
-                    "Đạt",
-                    "10 điểm"
-                ]
-            )
-
-        else:
-
-            ket_qua.append(
-                [
-                    "Phương án sử dụng vốn",
-                    "Chưa đạt",
-                    "0 điểm"
-                ]
-            )
 
 
         # LNST
@@ -1460,7 +899,7 @@ elif menu == "📊 Kết quả thẩm định":
                 [
                     "LNST",
                     "Đạt",
-                    f"{st.session_state.lnst:,.0f} triệu đồng"
+                    f"{st.session_state.lnst:,.2f} triệu đồng"
                 ]
             )
 
@@ -1469,7 +908,7 @@ elif menu == "📊 Kết quả thẩm định":
             ket_qua.append(
                 [
                     "LNST",
-                    "Chưa đạt",
+                    "Không đạt",
                     "LNST không dương"
                 ]
             )
@@ -1479,7 +918,7 @@ elif menu == "📊 Kết quả thẩm định":
 
         if st.session_state.roa > 0:
 
-            diem += 10
+            diem += 15
 
             ket_qua.append(
                 [
@@ -1494,7 +933,7 @@ elif menu == "📊 Kết quả thẩm định":
             ket_qua.append(
                 [
                     "ROA",
-                    "Chưa đạt",
+                    "Không đạt",
                     f"{st.session_state.roa:.2f}%"
                 ]
             )
@@ -1504,7 +943,7 @@ elif menu == "📊 Kết quả thẩm định":
 
         if st.session_state.roe > 0:
 
-            diem += 10
+            diem += 15
 
             ket_qua.append(
                 [
@@ -1519,17 +958,17 @@ elif menu == "📊 Kết quả thẩm định":
             ket_qua.append(
                 [
                     "ROE",
-                    "Chưa đạt",
+                    "Không đạt",
                     f"{st.session_state.roe:.2f}%"
                 ]
             )
 
 
-        # Tỷ lệ nợ
+        # TỶ LỆ NỢ
 
         if st.session_state.ty_le_no <= 70:
 
-            diem += 10
+            diem += 15
 
             ket_qua.append(
                 [
@@ -1544,26 +983,26 @@ elif menu == "📊 Kết quả thẩm định":
             ket_qua.append(
                 [
                     "Tỷ lệ nợ",
-                    "Chưa đạt",
+                    "Không đạt",
                     f"{st.session_state.ty_le_no:.2f}%"
                 ]
             )
 
 
-        # Khả năng trả nợ
+        # DÒNG TIỀN
 
         if (
             st.session_state.dong_tien
             >= st.session_state.tong_nghia_vu
         ):
 
-            diem += 10
+            diem += 15
 
             ket_qua.append(
                 [
                     "Khả năng trả nợ",
                     "Đạt",
-                    "Dòng tiền đáp ứng"
+                    "Dòng tiền đáp ứng nghĩa vụ"
                 ]
             )
 
@@ -1572,7 +1011,7 @@ elif menu == "📊 Kết quả thẩm định":
             ket_qua.append(
                 [
                     "Khả năng trả nợ",
-                    "Chưa đạt",
+                    "Không đạt",
                     "Dòng tiền chưa đáp ứng"
                 ]
             )
@@ -1582,7 +1021,7 @@ elif menu == "📊 Kết quả thẩm định":
 
         if st.session_state.ltv is None:
 
-            diem += 10
+            diem += 15
 
             ket_qua.append(
                 [
@@ -1594,7 +1033,7 @@ elif menu == "📊 Kết quả thẩm định":
 
         elif st.session_state.ltv <= 70:
 
-            diem += 10
+            diem += 15
 
             ket_qua.append(
                 [
@@ -1609,7 +1048,7 @@ elif menu == "📊 Kết quả thẩm định":
             ket_qua.append(
                 [
                     "LTV",
-                    "Chưa đạt",
+                    "Không đạt",
                     f"{st.session_state.ltv:.2f}%"
                 ]
             )
@@ -1619,129 +1058,107 @@ elif menu == "📊 Kết quả thẩm định":
         # HIỂN THỊ ĐIỂM
         # =============================================
 
-        st.markdown(
-            '<div class="section-title">🎯 TỔNG QUAN ĐÁNH GIÁ</div>',
-            unsafe_allow_html=True
-        )
+        st.divider()
 
+        st.subheader(
+            "🎯 TỔNG QUAN KẾT QUẢ"
+        )
 
         c1, c2, c3, c4 = st.columns(4)
 
-
         c1.metric(
             "ĐIỂM THẨM ĐỊNH",
-            f"{diem}/100"
+            f"{diem}/90"
         )
-
 
         c2.metric(
             "ROA",
             f"{st.session_state.roa:.2f}%"
         )
 
-
         c3.metric(
             "ROE",
             f"{st.session_state.roe:.2f}%"
         )
-
 
         c4.metric(
             "LTV",
             (
                 f"{st.session_state.ltv:.2f}%"
                 if st.session_state.ltv is not None
-                else "N/A"
+                else "Không áp dụng"
             )
         )
 
 
-        st.progress(
-            min(diem / 100, 1.0)
-        )
+        st.divider()
 
 
         # =============================================
         # KẾT LUẬN
         # =============================================
 
-        st.markdown(
-            '<div class="section-title">📌 KẾT LUẬN THẨM ĐỊNH</div>',
-            unsafe_allow_html=True
+        st.subheader(
+            "📌 KẾT LUẬN THẨM ĐỊNH"
         )
 
 
-        if diem >= 80:
+        # Quy đổi điểm về %
 
-            st.markdown(
-                """
-                <div class="result-green">
+        ty_le_diem = diem / 90 * 100
 
-                <h2>🟢 ĐỀ XUẤT CHO VAY</h2>
 
-                <p>
-                Hồ sơ có mức điểm thẩm định cao.
-                Doanh nghiệp đáp ứng tương đối tốt
-                các tiêu chí trong mô hình đánh giá.
-                </p>
+        if ty_le_diem >= 80:
 
-                <b>Khuyến nghị:</b>
+            st.success(
+                "🟢 ĐỀ XUẤT CHO VAY"
+            )
 
-                Có thể chuyển sang bước thẩm định
-                tín dụng chi tiết.
+            st.write(
+                f"Doanh nghiệp đạt mức đánh giá "
+                f"{ty_le_diem:.1f}%."
+            )
 
-                </div>
-                """,
-                unsafe_allow_html=True
+            st.info(
+                "Hồ sơ có kết quả tương đối tích cực "
+                "theo mô hình hỗ trợ. Có thể chuyển sang "
+                "bước thẩm định tín dụng chi tiết."
             )
 
 
-        elif diem >= 60:
+        elif ty_le_diem >= 60:
 
-            st.markdown(
-                """
-                <div class="result-yellow">
+            st.warning(
+                "🟡 CẦN THẨM ĐỊNH BỔ SUNG"
+            )
 
-                <h2>🟡 CẦN THẨM ĐỊNH BỔ SUNG</h2>
+            st.write(
+                f"Doanh nghiệp đạt mức đánh giá "
+                f"{ty_le_diem:.1f}%."
+            )
 
-                <p>
-                Hồ sơ còn tồn tại một số tiêu chí
-                chưa đạt yêu cầu trong mô hình.
-                </p>
-
-                <b>Khuyến nghị:</b>
-
-                Cần kiểm tra thêm dòng tiền,
-                lịch sử tín dụng, khả năng trả nợ
-                và tài sản bảo đảm.
-
-                </div>
-                """,
-                unsafe_allow_html=True
+            st.info(
+                "Cần xem xét thêm dòng tiền, "
+                "khả năng trả nợ, lịch sử tín dụng, "
+                "phương án sử dụng vốn và tài sản bảo đảm."
             )
 
 
         else:
 
-            st.markdown(
-                """
-                <div class="result-red">
+            st.error(
+                "🔴 CHƯA ĐỀ XUẤT CHO VAY"
+            )
 
-                <h2>🔴 CHƯA ĐỀ XUẤT CHO VAY</h2>
+            st.write(
+                f"Doanh nghiệp đạt mức đánh giá "
+                f"{ty_le_diem:.1f}%."
+            )
 
-                <p>
-                Hồ sơ có mức điểm thấp và còn tồn tại
-                nhiều yếu tố rủi ro theo mô hình.
-                </p>
-
-                <b>Khuyến nghị:</b>
-
-                Cần xem xét lại phương án vay,
-                khả năng tài chính và các điều kiện tín dụng.
-
-                </div>
-                """,
-                unsafe_allow_html=True
+            st.info(
+                "Hồ sơ còn nhiều tiêu chí chưa đạt "
+                "theo mô hình đánh giá. Cần xem xét "
+                "bổ sung hoặc điều chỉnh phương án vay."
             )
 
 
@@ -1749,11 +1166,11 @@ elif menu == "📊 Kết quả thẩm định":
         # BẢNG CHI TIẾT
         # =============================================
 
-        st.markdown(
-            '<div class="section-title">📋 CHI TIẾT CÁC TIÊU CHÍ</div>',
-            unsafe_allow_html=True
-        )
+        st.divider()
 
+        st.subheader(
+            "📋 CHI TIẾT KẾT QUẢ"
+        )
 
         df_ket_qua = pd.DataFrame(
             ket_qua,
@@ -1764,7 +1181,6 @@ elif menu == "📊 Kết quả thẩm định":
                 "Đánh giá"
             ]
         )
-
 
         st.dataframe(
             df_ket_qua,
@@ -1777,43 +1193,26 @@ elif menu == "📊 Kết quả thẩm định":
 
         st.warning(
             """
-            ⚠️ **Lưu ý quan trọng:**
+            ⚠️ LƯU Ý:
 
-            Điểm số và ngưỡng phân loại trong ứng dụng
-            là mô hình minh họa phục vụ mục đích học tập
-            và hỗ trợ thẩm định.
+            Kết quả trên chỉ mang tính chất hỗ trợ thẩm định.
+            ROA, ROE, tỷ lệ nợ và LTV là các chỉ tiêu hỗ trợ
+            phân tích tín dụng, không phải điều kiện pháp lý
+            bắt buộc chung cho mọi doanh nghiệp.
 
-            ROA, ROE, tỷ lệ nợ và LTV là các chỉ tiêu
-            hỗ trợ phân tích tín dụng, không phải điều kiện
-            pháp lý bắt buộc chung cho mọi doanh nghiệp.
+            Quyết định cho vay thực tế phụ thuộc vào hồ sơ,
+            lịch sử tín dụng, dòng tiền, phương án kinh doanh,
+            tài sản bảo đảm và chính sách của tổ chức tín dụng.
             """
         )
 
 
 # =========================================================
-# 13. FOOTER
+# 12. FOOTER
 # =========================================================
 
-st.markdown(
-    """
-    <div class="footer">
+st.divider()
 
-        🏦 <b>CREDITCHECK</b>
-
-        <br><br>
-
-        HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP
-
-        <br><br>
-
-        Điều kiện vay vốn • Phân tích tài chính •
-        Khả năng trả nợ • Tài sản bảo đảm
-
-        <br><br>
-
-        © 2026
-
-    </div>
-    """,
-    unsafe_allow_html=True
+st.caption(
+    "🏦 Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp"
 )
