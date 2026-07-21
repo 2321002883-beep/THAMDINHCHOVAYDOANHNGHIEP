@@ -190,12 +190,6 @@ with st.sidebar:
         ]
     )
 
-    st.divider()
-
-    st.caption("Phiên bản 2.0")
-    st.caption("© 2026")
-
-
 # =========================================================
 # 5. TRANG TỔNG QUAN
 # =========================================================
@@ -261,7 +255,6 @@ if menu == "🏠 Tổng quan":
 
         st.metric(
             "📊 Kết quả thẩm định",
-            "AI"
         )
 
     st.divider()
