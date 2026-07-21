@@ -58,8 +58,8 @@ default_values = {
 }
 
 for key, value in default_values.items():
-if key not in st.session_state:
-st.session_state[key] = value
+    if key not in st.session_state:
+        st.session_state[key] = value
 
 # =========================================================
 
