@@ -26,7 +26,6 @@ default_values = {
 "nganh_nghe": "Sản xuất",
 "thoi_gian_hd": 3,
 
-```
 "nang_luc_phap_ly": "Chưa đánh giá",
 "muc_dich": "Chưa đánh giá",
 "co_phuong_an": "Chưa đánh giá",
@@ -55,7 +54,6 @@ default_values = {
 "co_tsdb": "Chưa đánh giá",
 "gia_tri_tsdb": 0.0,
 "ltv": None
-```
 
 }
 
@@ -72,7 +70,6 @@ st.session_state[key] = value
 st.markdown(
 """ <style>
 
-```
 /* ==============================
    NỀN TOÀN BỘ ỨNG DỤNG
 ============================== */
@@ -411,7 +408,6 @@ hr {
 </style>
 """,
 unsafe_allow_html=True
-```
 
 )
 
@@ -423,7 +419,6 @@ unsafe_allow_html=True
 
 with st.sidebar:
 
-```
 st.markdown(
     """
     <div class="sidebar-logo">
@@ -471,7 +466,6 @@ st.caption(
 st.caption(
     "Phiên bản 1.0"
 )
-```
 
 # =========================================================
 
@@ -481,7 +475,6 @@ st.caption(
 
 if menu == "🏠 Tổng quan":
 
-```
 st.markdown(
     """
     <div class="main-header">
@@ -656,7 +649,7 @@ st.warning(
     "⚠️ Kết quả của ứng dụng chỉ mang tính chất hỗ trợ "
     "thẩm định, không thay thế quyết định tín dụng thực tế."
 )
-```
+
 
 # =========================================================
 
@@ -763,7 +756,6 @@ if st.button("💾 LƯU HỒ SƠ DOANH NGHIỆP"):
 
 elif menu == "⚖️ Điều kiện vay vốn":
 
-```
 st.title("⚖️ KIỂM TRA ĐIỀU KIỆN VAY VỐN")
 
 st.info(
@@ -855,7 +847,6 @@ with c2:
 st.success(
     "✅ Thông tin điều kiện vay vốn đã được cập nhật."
 )
-```
 
 # =========================================================
 
@@ -865,7 +856,6 @@ st.success(
 
 elif menu == "💰 Phân tích tài chính":
 
-```
 st.title("💰 PHÂN TÍCH TÀI CHÍNH")
 
 st.caption(
@@ -997,7 +987,6 @@ if st.session_state.roa is not None:
     st.bar_chart(
         chart.set_index("Chỉ tiêu")
     )
-```
 
 # =========================================================
 
@@ -1088,7 +1077,6 @@ if st.button("💳 PHÂN TÍCH KHẢ NĂNG TRẢ NỢ"):
         "TỔNG NGHĨA VỤ / THÁNG",
         f"{st.session_state.tong_nghia_vu:,.2f}"
     )
-```
 
 # =========================================================
 
@@ -1098,7 +1086,6 @@ if st.button("💳 PHÂN TÍCH KHẢ NĂNG TRẢ NỢ"):
 
 elif menu == "🏠 Tài sản bảo đảm":
 
-```
 st.title("🏠 TÀI SẢN BẢO ĐẢM")
 
 st.info(
@@ -1175,7 +1162,6 @@ if st.button("🏠 PHÂN TÍCH TÀI SẢN BẢO ĐẢM"):
             st.error(
                 "🔴 Số tiền vay lớn hơn giá trị tài sản bảo đảm."
             )
-```
 
 # =========================================================
 
@@ -1513,7 +1499,6 @@ else:
         tài sản bảo đảm và chính sách của tổ chức tín dụng.
         """
     )
-```
 
 # =========================================================
 
@@ -1526,7 +1511,6 @@ st.divider()
 st.markdown(
 """ <div class="footer">
 
-```
     🏦 <b>HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP</b>
     <br>
     Hỗ trợ phân tích hồ sơ và đánh giá tín dụng doanh nghiệp
@@ -1538,6 +1522,5 @@ st.markdown(
 </div>
 """,
 unsafe_allow_html=True
-```
 
 )
