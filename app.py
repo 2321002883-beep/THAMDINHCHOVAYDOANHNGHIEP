@@ -2,110 +2,169 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 
-# =========================
-# CẤU HÌNH
-# =========================
+# =====================================================
+# 1. CẤU HÌNH ỨNG DỤNG
+# =====================================================
+
 st.set_page_config(
-    page_title="CreditVision",
+    page_title="Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp",
     page_icon="🏦",
     layout="wide"
 )
 
-# =========================
-# LOGO
-# =========================
+# =====================================================
+# 2. LOGO
+# =====================================================
+
 logo = Path(__file__).parent / "logo.png"
 
-# =========================
-# CSS NGẮN GỌN
-# =========================
+# =====================================================
+# 3. GIAO DIỆN
+# =====================================================
+
 st.markdown("""
 <style>
+
 .stApp {
-    background:#f5f7fb;
+    background-color: #f5f7fb;
 }
+
 section[data-testid="stSidebar"] {
-    background:#0f172a;
+    background-color: #0f172a;
 }
+
 .block-container {
-    max-width:1200px;
-    padding-top:2rem;
+    max-width: 1200px;
+    padding-top: 2rem;
 }
+
 h1 {
-    color:#0f172a;
+    color: #0f172a;
 }
+
+h2, h3 {
+    color: #1e293b;
+}
+
 .card {
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    border:1px solid #e2e8f0;
-    box-shadow:0 3px 12px rgba(0,0,0,.06);
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
 }
+
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
-# SIDEBAR
-# =========================
-with st.sidebar:
-    if logo.exists():
-        st.image(str(logo), use_container_width=True)
+# =====================================================
+# 4. SIDEBAR
+# =====================================================
 
-    st.title("🏦 CreditVision")
-    st.caption("Hệ thống hỗ trợ thẩm định tín dụng doanh nghiệp")
+with st.sidebar:
+
+    if logo.exists():
+        st.image(
+            str(logo),
+            use_container_width=True
+        )
+
+    st.title(
+        "🏦 Thẩm định tín dụng"
+    )
+
+    st.caption(
+        "Hệ thống hỗ trợ thẩm định "
+        "cho vay doanh nghiệp"
+    )
 
     st.divider()
 
     st.info("""
-    **Quy trình**
+    **QUY TRÌNH THẨM ĐỊNH**
 
-    1️⃣ Nhập hồ sơ  
-    2️⃣ Nhập tài chính  
-    3️⃣ Nhập khoản vay  
-    4️⃣ Nhập TSĐB  
-    5️⃣ Thẩm định
+    1️⃣ Nhập hồ sơ doanh nghiệp
+
+    2️⃣ Nhập thông tin tài chính
+
+    3️⃣ Nhập khoản vay
+
+    4️⃣ Nhập tài sản bảo đảm
+
+    5️⃣ Thực hiện thẩm định
+
+    6️⃣ Xem kết quả
     """)
 
-# =========================
-# HEADER
-# =========================
-c1, c2 = st.columns([1, 6])
+    st.divider()
 
-with c1:
+    st.caption(
+        "© 2026 - Hệ thống hỗ trợ thẩm định"
+    )
+
+# =====================================================
+# 5. HEADER
+# =====================================================
+
+col_logo, col_title = st.columns([1, 6])
+
+with col_logo:
+
     if logo.exists():
-        st.image(str(logo), width=110)
+
+        st.image(
+            str(logo),
+            width=110
+        )
+
     else:
+
         st.write("🏦")
 
-with c2:
-    st.title("CreditVision")
-    st.caption(
-        "HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP"
+
+with col_title:
+
+    st.title(
+        "🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH "
+        "CHO VAY DOANH NGHIỆP"
     )
+
+    st.caption(
+        "Phân tích tài chính • Khả năng trả nợ • "
+        "Tài sản bảo đảm"
+    )
+
 
 st.divider()
 
-# =========================
-# 1. THÔNG TIN DOANH NGHIỆP
-# =========================
-st.subheader("🏢 Thông tin doanh nghiệp")
+# =====================================================
+# 6. THÔNG TIN DOANH NGHIỆP
+# =====================================================
+
+st.subheader(
+    "🏢 1. THÔNG TIN DOANH NGHIỆP"
+)
 
 c1, c2, c3 = st.columns(3)
 
 with c1:
+
     ten_dn = st.text_input(
         "Tên doanh nghiệp",
-        "Công ty TNHH ABC"
+        placeholder="Ví dụ: Công ty TNHH ABC"
     )
 
 with c2:
+
     ma_so = st.text_input(
-        "Mã số doanh nghiệp"
+        "Mã số doanh nghiệp",
+        placeholder="Ví dụ: 0312345678"
     )
 
 with c3:
+
     nganh = st.selectbox(
-        "Ngành nghề",
+        "Ngành nghề kinh doanh",
         [
             "Sản xuất",
             "Thương mại",
@@ -113,56 +172,72 @@ with c3:
             "Xây dựng",
             "Vận tải",
             "Công nghệ",
+            "Nông nghiệp",
             "Khác"
         ]
     )
 
-# =========================
-# 2. TÀI CHÍNH
-# =========================
-st.subheader("💰 Tình hình tài chính")
-st.caption("Đơn vị: triệu đồng")
+# =====================================================
+# 7. TÌNH HÌNH TÀI CHÍNH
+# =====================================================
+
+st.subheader(
+    "💰 2. TÌNH HÌNH TÀI CHÍNH"
+)
+
+st.caption(
+    "Đơn vị nhập liệu: triệu đồng"
+)
 
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
+
     doanh_thu = st.number_input(
         "Doanh thu",
         min_value=0.0
     )
 
 with c2:
+
     lnst = st.number_input(
-        "LNST",
+        "Lợi nhuận sau thuế (LNST)",
         value=0.0
     )
 
 with c3:
+
     tong_ts = st.number_input(
         "Tổng tài sản",
         min_value=0.0
     )
 
 with c4:
+
     von_csh = st.number_input(
         "Vốn chủ sở hữu",
         min_value=0.0
     )
 
-# =========================
-# 3. KHOẢN VAY
-# =========================
-st.subheader("💳 Thông tin khoản vay")
+# =====================================================
+# 8. THÔNG TIN KHOẢN VAY
+# =====================================================
+
+st.subheader(
+    "💳 3. THÔNG TIN KHOẢN VAY"
+)
 
 c1, c2, c3 = st.columns(3)
 
 with c1:
+
     so_tien_vay = st.number_input(
         "Số tiền vay",
         min_value=0.0
     )
 
 with c2:
+
     thoi_han = st.number_input(
         "Thời hạn vay (tháng)",
         min_value=1,
@@ -170,77 +245,157 @@ with c2:
     )
 
 with c3:
+
     lai_suat = st.number_input(
-        "Lãi suất (%/năm)",
+        "Lãi suất cho vay (%/năm)",
         min_value=0.0
     )
 
-# =========================
-# 4. TSĐB
-# =========================
-st.subheader("🏠 Tài sản bảo đảm")
+# =====================================================
+# 9. TÀI SẢN BẢO ĐẢM
+# =====================================================
+
+st.subheader(
+    "🏠 4. TÀI SẢN BẢO ĐẢM"
+)
 
 c1, c2 = st.columns(2)
 
 with c1:
+
     co_tsdb = st.selectbox(
-        "Có tài sản bảo đảm?",
-        ["Có", "Không"]
+        "Khoản vay có tài sản bảo đảm?",
+        [
+            "Có",
+            "Không"
+        ]
     )
 
 with c2:
+
     gia_tri_tsdb = st.number_input(
-        "Giá trị TSĐB",
+        "Giá trị tài sản bảo đảm",
         min_value=0.0
     )
 
-# =========================
-# 5. THẨM ĐỊNH
-# =========================
+# =====================================================
+# 10. NÚT THẨM ĐỊNH
+# =====================================================
+
 st.divider()
 
-if st.button(
+thuc_hien = st.button(
     "🔍 THỰC HIỆN THẨM ĐỊNH",
     type="primary",
     use_container_width=True
-):
+)
+
+# =====================================================
+# 11. TÍNH TOÁN VÀ THẨM ĐỊNH
+# =====================================================
+
+if thuc_hien:
 
     # Kiểm tra dữ liệu
-    if tong_ts <= 0 or von_csh <= 0 or so_tien_vay <= 0:
+
+    if not ten_dn:
 
         st.error(
-            "⚠️ Vui lòng nhập đầy đủ Tổng tài sản, "
-            "Vốn chủ sở hữu và Số tiền vay."
+            "⚠️ Vui lòng nhập tên doanh nghiệp."
         )
 
         st.stop()
 
-    # =====================
-    # TÍNH ROA - ROE
-    # =====================
-    roa = lnst / tong_ts * 100
-    roe = lnst / von_csh * 100
+    if tong_ts <= 0:
 
-    # =====================
+        st.error(
+            "⚠️ Tổng tài sản phải lớn hơn 0."
+        )
+
+        st.stop()
+
+    if von_csh <= 0:
+
+        st.error(
+            "⚠️ Vốn chủ sở hữu phải lớn hơn 0."
+        )
+
+        st.stop()
+
+    if so_tien_vay <= 0:
+
+        st.error(
+            "⚠️ Số tiền vay phải lớn hơn 0."
+        )
+
+        st.stop()
+
+    # =================================================
+    # TÍNH ROA
+    # =================================================
+
+    roa = (
+        lnst
+        / tong_ts
+        * 100
+    )
+
+    # =================================================
+    # TÍNH ROE
+    # =================================================
+
+    roe = (
+        lnst
+        / von_csh
+        * 100
+    )
+
+    # =================================================
+    # TÍNH NỢ PHẢI TRẢ
+    # =================================================
+
+    no_phai_tra = (
+        tong_ts
+        - von_csh
+    )
+
+    # =================================================
     # TỶ LỆ NỢ
-    # =====================
-    # Tạm thời dùng tổng tài sản - VCSH
-    no_phai_tra = tong_ts - von_csh
+    # =================================================
 
-    ty_le_no = no_phai_tra / tong_ts * 100
+    ty_le_no = (
+        no_phai_tra
+        / tong_ts
+        * 100
+    )
 
-    # =====================
-    # LTV
-    # =====================
-    if co_tsdb == "Có" and gia_tri_tsdb > 0:
-        ltv = so_tien_vay / gia_tri_tsdb * 100
+    # =================================================
+    # TÍNH LTV
+    # =================================================
+
+    if (
+        co_tsdb == "Có"
+        and gia_tri_tsdb > 0
+    ):
+
+        ltv = (
+            so_tien_vay
+            / gia_tri_tsdb
+            * 100
+        )
+
     else:
+
         ltv = None
 
-    # =====================
-    # TRẢ NỢ
-    # =====================
-    tien_goc = so_tien_vay / thoi_han
+    # =================================================
+    # TÍNH TRẢ NỢ HÀNG THÁNG
+    # =================================================
+
+    tien_goc = (
+        so_tien_vay
+        / thoi_han
+    )
 
     tien_lai = (
         so_tien_vay
@@ -254,9 +409,10 @@ if st.button(
         + tien_lai
     )
 
-    # =====================
-    # CHẤM ĐIỂM
-    # =====================
+    # =================================================
+    # CHẤM ĐIỂM MÔ HÌNH
+    # =================================================
+
     diem = 0
 
     if lnst > 0:
@@ -271,84 +427,148 @@ if st.button(
     if ty_le_no <= 70:
         diem += 1
 
-    if ltv is None or ltv <= 70:
+    if (
+        ltv is None
+        or ltv <= 70
+    ):
         diem += 1
 
-    # =====================
+    # =================================================
     # KẾT QUẢ
-    # =====================
-    st.subheader("📊 Kết quả thẩm định")
+    # =================================================
+
+    st.divider()
+
+    st.header(
+        "📊 5. KẾT QUẢ THẨM ĐỊNH"
+    )
 
     c1, c2, c3, c4, c5 = st.columns(5)
 
-    c1.metric("ROA", f"{roa:.2f}%")
-    c2.metric("ROE", f"{roe:.2f}%")
-    c3.metric("Tỷ lệ nợ", f"{ty_le_no:.2f}%")
-    c4.metric(
-        "LTV",
-        f"{ltv:.2f}%" if ltv is not None else "N/A"
-    )
-    c5.metric("Điểm", f"{diem}/5")
+    with c1:
 
-    # =====================
-    # BIỂU ĐỒ
-    # =====================
-    chart = pd.DataFrame({
-        "Chỉ tiêu": [
+        st.metric(
             "ROA",
+            f"{roa:.2f}%"
+        )
+
+    with c2:
+
+        st.metric(
             "ROE",
-            "Tỷ lệ nợ"
-        ],
-        "Giá trị (%)": [
-            roa,
-            roe,
-            ty_le_no
-        ]
-    })
+            f"{roe:.2f}%"
+        )
+
+    with c3:
+
+        st.metric(
+            "TỶ LỆ NỢ",
+            f"{ty_le_no:.2f}%"
+        )
+
+    with c4:
+
+        st.metric(
+            "LTV",
+            (
+                f"{ltv:.2f}%"
+                if ltv is not None
+                else "N/A"
+            )
+        )
+
+    with c5:
+
+        st.metric(
+            "ĐIỂM ĐÁNH GIÁ",
+            f"{diem}/5"
+        )
+
+    # =================================================
+    # BIỂU ĐỒ
+    # =================================================
+
+    st.subheader(
+        "📈 Phân tích các chỉ tiêu"
+    )
+
+    chart = pd.DataFrame(
+
+        {
+            "Chỉ tiêu": [
+                "ROA",
+                "ROE",
+                "Tỷ lệ nợ"
+            ],
+
+            "Giá trị (%)": [
+                roa,
+                roe,
+                ty_le_no
+            ]
+        }
+
+    )
 
     st.bar_chart(
-        chart.set_index("Chỉ tiêu")
+        chart.set_index(
+            "Chỉ tiêu"
+        )
     )
 
-    # =====================
+    # =================================================
     # KHẢ NĂNG TRẢ NỢ
-    # =====================
-    st.subheader("💰 Khả năng trả nợ")
+    # =================================================
+
+    st.subheader(
+        "💰 Khả năng trả nợ"
+    )
 
     c1, c2, c3 = st.columns(3)
 
-    c1.metric(
-        "Gốc/tháng",
-        f"{tien_goc:,.2f}"
-    )
+    with c1:
 
-    c2.metric(
-        "Lãi tháng đầu",
-        f"{tien_lai:,.2f}"
-    )
+        st.metric(
+            "Gốc trả/tháng",
+            f"{tien_goc:,.2f} triệu"
+        )
 
-    c3.metric(
-        "Tổng trả/tháng",
-        f"{no_hang_thang:,.2f}"
-    )
+    with c2:
 
-    # =====================
+        st.metric(
+            "Lãi tháng đầu",
+            f"{tien_lai:,.2f} triệu"
+        )
+
+    with c3:
+
+        st.metric(
+            "Tổng trả/tháng",
+            f"{no_hang_thang:,.2f} triệu"
+        )
+
+    # =================================================
     # KẾT LUẬN
-    # =====================
+    # =================================================
+
+    st.subheader(
+        "🎯 KẾT LUẬN"
+    )
+
     if diem >= 4:
 
         st.success(
             "🟢 ĐỀ XUẤT XEM XÉT CHO VAY\n\n"
             "Hồ sơ có các chỉ tiêu tương đối tích cực "
-            "theo mô hình hỗ trợ."
+            "theo mô hình hỗ trợ thẩm định."
         )
 
     elif diem >= 2:
 
         st.warning(
             "🟡 CẦN THẨM ĐỊNH THÊM\n\n"
-            "Hồ sơ còn một số yếu tố cần phân tích "
-            "bổ sung."
+            "Hồ sơ cần được phân tích bổ sung "
+            "về khả năng trả nợ và rủi ro."
         )
 
     else:
@@ -356,44 +576,99 @@ if st.button(
         st.error(
             "🔴 RỦI RO CAO THEO MÔ HÌNH\n\n"
             "Hồ sơ chưa đáp ứng tốt các tiêu chí "
-            "của mô hình."
+            "của mô hình hỗ trợ."
         )
 
-    # =====================
-    # BẢNG KẾT QUẢ
-    # =====================
-    ket_qua = pd.DataFrame({
-        "Chỉ tiêu": [
-            "Doanh nghiệp",
-            "Mã số",
-            "Ngành nghề",
-            "ROA",
-            "ROE",
-            "Tỷ lệ nợ",
-            "Số tiền vay",
-            "Thời hạn vay",
-            "Lãi suất",
-            "Giá trị TSĐB",
-            "LTV",
-            "Điểm"
-        ],
-        "Kết quả": [
-            ten_dn,
-            ma_so,
-            nganh,
-            f"{roa:.2f}%",
-            f"{roe:.2f}%",
-            f"{ty_le_no:.2f}%",
-            f"{so_tien_vay:,.2f}",
-            f"{thoi_han} tháng",
-            f"{lai_suat:.2f}%",
-            f"{gia_tri_tsdb:,.2f}",
-            f"{ltv:.2f}%" if ltv else "N/A",
-            f"{diem}/5"
-        ]
-    })
+    # =================================================
+    # BẢNG TỔNG HỢP
+    # =================================================
 
-    st.subheader("📋 Tổng hợp hồ sơ")
+    st.subheader(
+        "📋 BẢNG TỔNG HỢP HỒ SƠ"
+    )
+
+    ket_qua = pd.DataFrame(
+
+        {
+            "Chỉ tiêu": [
+
+                "Tên doanh nghiệp",
+
+                "Mã số doanh nghiệp",
+
+                "Ngành nghề",
+
+                "Doanh thu",
+
+                "LNST",
+
+                "Tổng tài sản",
+
+                "Vốn chủ sở hữu",
+
+                "ROA",
+
+                "ROE",
+
+                "Tỷ lệ nợ",
+
+                "Số tiền vay",
+
+                "Thời hạn vay",
+
+                "Lãi suất",
+
+                "Giá trị TSĐB",
+
+                "LTV",
+
+                "Điểm đánh giá"
+
+            ],
+
+            "Kết quả": [
+
+                ten_dn,
+
+                ma_so,
+
+                nganh,
+
+                f"{doanh_thu:,.2f} triệu đồng",
+
+                f"{lnst:,.2f} triệu đồng",
+
+                f"{tong_ts:,.2f} triệu đồng",
+
+                f"{von_csh:,.2f} triệu đồng",
+
+                f"{roa:.2f}%",
+
+                f"{roe:.2f}%",
+
+                f"{ty_le_no:.2f}%",
+
+                f"{so_tien_vay:,.2f} triệu đồng",
+
+                f"{thoi_han} tháng",
+
+                f"{lai_suat:.2f}%/năm",
+
+                f"{gia_tri_tsdb:,.2f} triệu đồng",
+
+                (
+                    f"{ltv:.2f}%"
+                    if ltv is not None
+                    else "Không áp dụng"
+                ),
+
+                f"{diem}/5"
+
+            ]
+
+        }
+
+    )
 
     st.dataframe(
         ket_qua,
@@ -401,27 +676,31 @@ if st.button(
         hide_index=True
     )
 
-    # =====================
+    # =================================================
     # TẢI BÁO CÁO
-    # =====================
+    # =================================================
+
     csv = ket_qua.to_csv(
         index=False
-    ).encode("utf-8-sig")
+    ).encode(
+        "utf-8-sig"
+    )
 
     st.download_button(
-        "📥 TẢI BÁO CÁO CSV",
+        "📥 TẢI BÁO CÁO THẨM ĐỊNH",
         csv,
-        f"bao_cao_{ten_dn}.csv",
+        f"bao_cao_tham_dinh_{ten_dn}.csv",
         "text/csv",
         use_container_width=True
     )
 
-# =========================
-# FOOTER
-# =========================
+# =====================================================
+# 12. FOOTER
+# =====================================================
+
 st.divider()
 
 st.caption(
-    "🏦 CreditVision | Hệ thống hỗ trợ thẩm định "
-    "cho vay doanh nghiệp | 2026"
+    "🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP "
+    "| Phiên bản 1.0 | 2026"
 )
