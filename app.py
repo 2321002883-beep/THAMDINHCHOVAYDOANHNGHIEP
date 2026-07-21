@@ -60,16 +60,13 @@ default_values = {
 "co_tsdb": "Chưa đánh giá",
 "gia_tri_tsdb": 0.0,
 "ltv": None
-```
 
 }
 
 for key, value in default_values.items():
 
-```
 if key not in st.session_state:
     st.session_state[key] = value
-```
 
 # =========================================================
 
