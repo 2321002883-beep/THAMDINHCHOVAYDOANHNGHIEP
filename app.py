@@ -8,7 +8,7 @@ from pathlib import Path
 # =========================================================
 
 st.set_page_config(
-    page_title="CreditCheck AI - Thẩm định doanh nghiệp",
+    page_title="Thẩm định doanh nghiệp",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
