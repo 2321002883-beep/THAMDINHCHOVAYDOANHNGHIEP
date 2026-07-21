@@ -7,7 +7,7 @@ import pandas as pd
 # =========================================================
 
 st.set_page_config(
-    page_title="Hệ thống thẩm định cho vay doanh nghiệp",
+    page_title="HỆ THỐNG THẨM ĐỊNH CHO VAY DOANH NGHIỆP",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -171,8 +171,8 @@ st.markdown(
 with st.sidebar:
 
     st.caption(
-        "Hệ thống hỗ trợ thẩm định "
-        "cho vay doanh nghiệp"
+        "HỆ THỐNG HỖ TRỢ THẨM  "
+        "CHO VAY DOANH NGHIỆP"
     )
 
     st.divider()
