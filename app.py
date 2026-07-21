@@ -566,7 +566,7 @@ with st.sidebar:
     st.divider()
 
     menu = st.radio(
-        "ĐIỀU HƯỚNG HỆ THỐNG",
+        "CHỨC NĂNG",
         [
             "🏠 Tổng quan",
             "🏢 Hồ sơ doanh nghiệp",
