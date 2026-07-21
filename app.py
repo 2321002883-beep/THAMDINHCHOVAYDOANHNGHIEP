@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 import pandas as pd
 
@@ -52,7 +53,9 @@ if "tra_no_dung_han" not in st.session_state:
     st.session_state.tra_no_dung_han = "Chưa đánh giá"
 
 
-# Tài chính
+# =========================================================
+# TÀI CHÍNH
+# =========================================================
 
 if "doanh_thu" not in st.session_state:
     st.session_state.doanh_thu = 0.0
@@ -83,7 +86,9 @@ if "ty_le_no" not in st.session_state:
     st.session_state.ty_le_no = None
 
 
-# Khoản vay
+# =========================================================
+# KHOẢN VAY
+# =========================================================
 
 if "so_tien_vay" not in st.session_state:
     st.session_state.so_tien_vay = 0.0
@@ -101,7 +106,9 @@ if "tong_nghia_vu" not in st.session_state:
     st.session_state.tong_nghia_vu = None
 
 
-# Tài sản bảo đảm
+# =========================================================
+# TÀI SẢN BẢO ĐẢM
+# =========================================================
 
 if "co_tsdb" not in st.session_state:
     st.session_state.co_tsdb = "Chưa đánh giá"
@@ -114,48 +121,526 @@ if "ltv" not in st.session_state:
 
 
 # =========================================================
-# 3. CSS ĐƠN GIẢN
+# 3. CSS GIAO DIỆN HIỆN ĐẠI
 # =========================================================
 
 st.markdown(
     """
     <style>
 
+    /* =====================================================
+       TOÀN BỘ ỨNG DỤNG
+    ===================================================== */
+
     .stApp {
-        background-color: #f4f7fb;
+        background: linear-gradient(
+            135deg,
+            #f5f8fc 0%,
+            #eef3f9 50%,
+            #f8fafc 100%
+        );
     }
+
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        max-width: 1500px;
+    }
+
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
 
     section[data-testid="stSidebar"] {
-        background-color: #0b1f3a;
+
+        background:
+        linear-gradient(
+            180deg,
+            #071a33 0%,
+            #0b2d52 45%,
+            #0f426d 100%
+        );
+
+        border-right:
+        1px solid rgba(255,255,255,0.08);
+
+        box-shadow:
+        5px 0px 20px rgba(0,0,0,0.12);
     }
+
+
+    section[data-testid="stSidebar"] h1 {
+
+        color:
+        white !important;
+
+        font-size:
+        22px !important;
+
+        font-weight:
+        800 !important;
+
+        line-height:
+        1.4;
+
+        text-align:
+        center;
+
+        padding:
+        10px;
+
+        margin-bottom:
+        20px;
+    }
+
 
     section[data-testid="stSidebar"] * {
-        color: white;
+
+        color:
+        white;
     }
+
+
+    section[data-testid="stSidebar"]
+    div[role="radiogroup"] {
+
+        gap:
+        8px;
+    }
+
+
+    section[data-testid="stSidebar"]
+    div[role="radiogroup"] label {
+
+        background-color:
+        rgba(255,255,255,0.06);
+
+        padding:
+        12px 15px;
+
+        border-radius:
+        10px;
+
+        margin-bottom:
+        6px;
+
+        transition:
+        all 0.25s ease;
+    }
+
+
+    section[data-testid="stSidebar"]
+    div[role="radiogroup"] label:hover {
+
+        background-color:
+        rgba(255,255,255,0.15);
+
+        transform:
+        translateX(4px);
+    }
+
+
+    /* =====================================================
+       TIÊU ĐỀ
+    ===================================================== */
 
     h1 {
-        color: #0b1f3a;
+
+        color:
+        #082b52 !important;
+
+        font-size:
+        36px !important;
+
+        font-weight:
+        800 !important;
+
+        letter-spacing:
+        -0.5px;
+
+        margin-bottom:
+        8px;
     }
+
 
     h2 {
-        color: #123c69;
+
+        color:
+        #0b3c6f !important;
+
+        font-weight:
+        750 !important;
     }
+
 
     h3 {
-        color: #164e7a;
+
+        color:
+        #14558c !important;
+
+        font-weight:
+        700 !important;
     }
+
+
+    .stCaption {
+
+        color:
+        #64748b !important;
+
+        font-size:
+        14px;
+    }
+
+
+    /* =====================================================
+       METRIC - THẺ CHỈ SỐ
+    ===================================================== */
 
     div[data-testid="stMetric"] {
-        background-color: white;
-        border: 1px solid #dbe4ef;
-        padding: 15px;
-        border-radius: 12px;
-        box-shadow: 0px 3px 10px rgba(0,0,0,0.05);
+
+        background:
+        rgba(255,255,255,0.95);
+
+        border:
+        1px solid #e2e8f0;
+
+        padding:
+        20px;
+
+        border-radius:
+        16px;
+
+        box-shadow:
+        0px 5px 18px rgba(15,23,42,0.07);
+
+        transition:
+        all 0.25s ease;
+
+        min-height:
+        120px;
     }
 
-    .stButton button {
-        border-radius: 10px;
-        font-weight: bold;
+
+    div[data-testid="stMetric"]:hover {
+
+        transform:
+        translateY(-4px);
+
+        box-shadow:
+        0px 10px 25px rgba(15,23,42,0.12);
+
+        border-color:
+        #bfdbfe;
+    }
+
+
+    div[data-testid="stMetricLabel"] {
+
+        color:
+        #64748b !important;
+
+        font-size:
+        14px !important;
+
+        font-weight:
+        600 !important;
+    }
+
+
+    div[data-testid="stMetricValue"] {
+
+        color:
+        #0b3c6f !important;
+
+        font-size:
+        28px !important;
+
+        font-weight:
+        800 !important;
+    }
+
+
+    /* =====================================================
+       INPUT
+    ===================================================== */
+
+    div[data-baseweb="input"] {
+
+        background-color:
+        white;
+
+        border-radius:
+        10px;
+
+        border:
+        1px solid #dbe4ef;
+
+        transition:
+        all 0.2s ease;
+    }
+
+
+    div[data-baseweb="input"]:focus-within {
+
+        border-color:
+        #1976d2;
+
+        box-shadow:
+        0px 0px 0px 3px
+        rgba(25,118,210,0.12);
+    }
+
+
+    /* =====================================================
+       SELECTBOX
+    ===================================================== */
+
+    div[data-baseweb="select"] > div {
+
+        background-color:
+        white;
+
+        border-radius:
+        10px;
+
+        border:
+        1px solid #dbe4ef;
+
+        min-height:
+        42px;
+    }
+
+
+    div[data-baseweb="select"] > div:hover {
+
+        border-color:
+        #1976d2;
+    }
+
+
+    /* =====================================================
+       TEXT AREA
+    ===================================================== */
+
+    textarea {
+
+        background-color:
+        white !important;
+
+        border:
+        1px solid #dbe4ef !important;
+
+        border-radius:
+        10px !important;
+    }
+
+
+    textarea:focus {
+
+        border-color:
+        #1976d2 !important;
+
+        box-shadow:
+        0px 0px 0px 3px
+        rgba(25,118,210,0.12) !important;
+    }
+
+
+    /* =====================================================
+       LABEL
+    ===================================================== */
+
+    label {
+
+        font-weight:
+        600 !important;
+
+        color:
+        #334155 !important;
+    }
+
+
+    /* =====================================================
+       BUTTON
+    ===================================================== */
+
+    .stButton > button {
+
+        width:
+        100%;
+
+        min-height:
+        45px;
+
+        background:
+        linear-gradient(
+            135deg,
+            #1565c0,
+            #1976d2
+        );
+
+        color:
+        white !important;
+
+        border:
+        none;
+
+        border-radius:
+        10px;
+
+        font-size:
+        15px;
+
+        font-weight:
+        700;
+
+        letter-spacing:
+        0.2px;
+
+        box-shadow:
+        0px 4px 12px
+        rgba(21,101,192,0.25);
+
+        transition:
+        all 0.25s ease;
+    }
+
+
+    .stButton > button:hover {
+
+        background:
+        linear-gradient(
+            135deg,
+            #0d47a1,
+            #1565c0
+        );
+
+        transform:
+        translateY(-2px);
+
+        box-shadow:
+        0px 8px 20px
+        rgba(21,101,192,0.35);
+    }
+
+
+    .stButton > button:active {
+
+        transform:
+        translateY(0px);
+    }
+
+
+    /* =====================================================
+       THÔNG BÁO
+    ===================================================== */
+
+    div[data-testid="stAlert"] {
+
+        border-radius:
+        12px;
+
+        border:
+        none;
+
+        box-shadow:
+        0px 3px 12px
+        rgba(15,23,42,0.05);
+    }
+
+
+    /* =====================================================
+       DATAFRAME
+    ===================================================== */
+
+    div[data-testid="stDataFrame"] {
+
+        border-radius:
+        12px;
+
+        overflow:
+        hidden;
+
+        border:
+        1px solid #e2e8f0;
+
+        box-shadow:
+        0px 4px 15px
+        rgba(15,23,42,0.06);
+    }
+
+
+    /* =====================================================
+       BIỂU ĐỒ
+    ===================================================== */
+
+    div[data-testid="stArrowVegaLiteChart"] {
+
+        background-color:
+        white;
+
+        padding:
+        15px;
+
+        border-radius:
+        15px;
+
+        box-shadow:
+        0px 4px 15px
+        rgba(15,23,42,0.06);
+    }
+
+
+    /* =====================================================
+       ĐƯỜNG KẺ
+    ===================================================== */
+
+    hr {
+
+        border:
+        none;
+
+        border-top:
+        1px solid #dbe4ef;
+
+        margin-top:
+        25px;
+
+        margin-bottom:
+        25px;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+        .block-container {
+
+            padding-left:
+            1rem;
+
+            padding-right:
+            1rem;
+        }
+
+        h1 {
+
+            font-size:
+            28px !important;
+        }
+
+        div[data-testid="stMetricValue"] {
+
+            font-size:
+            22px !important;
+        }
     }
 
     </style>
@@ -170,7 +655,9 @@ st.markdown(
 
 with st.sidebar:
 
-    st.title("🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP")
+    st.title(
+        "🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP"
+    )
 
     st.divider()
 
@@ -186,6 +673,7 @@ with st.sidebar:
             "📊 Kết quả thẩm định"
         ]
     )
+
 
 # =========================================================
 # 5. TRANG TỔNG QUAN
@@ -843,8 +1331,6 @@ elif menu == "📊 Kết quả thẩm định":
         "Hệ thống tổng hợp kết quả từ các nhóm tiêu chí."
     )
 
-    # Kiểm tra dữ liệu
-
     if st.session_state.roa is None:
 
         st.warning(
@@ -869,9 +1355,9 @@ elif menu == "📊 Kết quả thẩm định":
 
     else:
 
-        # =============================================
+        # =================================================
         # TÍNH ĐIỂM
-        # =============================================
+        # =================================================
 
         diem = 0
 
@@ -1043,9 +1529,9 @@ elif menu == "📊 Kết quả thẩm định":
             )
 
 
-        # =============================================
+        # =================================================
         # HIỂN THỊ ĐIỂM
-        # =============================================
+        # =================================================
 
         st.divider()
 
@@ -1083,16 +1569,13 @@ elif menu == "📊 Kết quả thẩm định":
         st.divider()
 
 
-        # =============================================
+        # =================================================
         # KẾT LUẬN
-        # =============================================
+        # =================================================
 
         st.subheader(
             "📌 KẾT LUẬN THẨM ĐỊNH"
         )
-
-
-        # Quy đổi điểm về %
 
         ty_le_diem = diem / 90 * 100
 
@@ -1151,9 +1634,9 @@ elif menu == "📊 Kết quả thẩm định":
             )
 
 
-        # =============================================
+        # =================================================
         # BẢNG CHI TIẾT
-        # =============================================
+        # =================================================
 
         st.divider()
 
@@ -1163,7 +1646,6 @@ elif menu == "📊 Kết quả thẩm định":
 
         df_ket_qua = pd.DataFrame(
             ket_qua,
-
             columns=[
                 "Tiêu chí",
                 "Kết quả",
@@ -1173,9 +1655,7 @@ elif menu == "📊 Kết quả thẩm định":
 
         st.dataframe(
             df_ket_qua,
-
             use_container_width=True,
-
             hide_index=True
         )
 
@@ -1185,6 +1665,7 @@ elif menu == "📊 Kết quả thẩm định":
             ⚠️ LƯU Ý:
 
             Kết quả trên chỉ mang tính chất hỗ trợ thẩm định.
+
             ROA, ROE, tỷ lệ nợ và LTV là các chỉ tiêu hỗ trợ
             phân tích tín dụng, không phải điều kiện pháp lý
             bắt buộc chung cho mọi doanh nghiệp.
@@ -1203,5 +1684,6 @@ elif menu == "📊 Kết quả thẩm định":
 st.divider()
 
 st.caption(
-    "🏦 Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp"
+    "🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP"
 )
+```
