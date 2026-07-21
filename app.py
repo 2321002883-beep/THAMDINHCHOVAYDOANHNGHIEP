@@ -7,7 +7,7 @@ import pandas as pd
 # =========================================================
 
 st.set_page_config(
-    page_title="CreditVision | Thẩm định tín dụng doanh nghiệp",
+    page_title="Thẩm định tín dụng doanh nghiệp",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -547,9 +547,6 @@ with st.sidebar:
         <h2 style="
             color:white !important;
             margin-bottom:0;
-        ">
-        CREDITVISION
-        </h2>
 
         <p style="
             color:#b8d7f2 !important;
@@ -588,10 +585,6 @@ with st.sidebar:
             border-radius:14px;
             text-align:center;
         ">
-
-        <b>CreditVision Premium</b>
-
-        <br>
 
         <small>
         Hỗ trợ phân tích tín dụng doanh nghiệp
