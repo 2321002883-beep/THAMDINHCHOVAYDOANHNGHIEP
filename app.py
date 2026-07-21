@@ -170,10 +170,8 @@ st.markdown(
 
 with st.sidebar:
 
-    st.title("🏦 CREDITCHECK")
-
     st.caption(
-        "Hệ thống hỗ trợ thẩm định "
+        "🏦 Hệ thống hỗ trợ thẩm định "
         "cho vay doanh nghiệp"
     )
 
