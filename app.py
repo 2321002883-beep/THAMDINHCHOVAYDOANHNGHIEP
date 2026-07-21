@@ -8,7 +8,7 @@ import pandas as pd
 # =========================================================
 
 st.set_page_config(
-    page_title="CreditVision - Thẩm định cho vay doanh nghiệp",
+    page_title="THẨM ĐỊNH CHO VAY DOANH NGHIỆP",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
