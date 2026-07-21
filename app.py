@@ -1212,5 +1212,5 @@ elif menu == "📊 Kết quả thẩm định":
 st.divider()
 
 st.caption(
-    "🏦 CREDITCHECK | Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp | © 2026"
+    "🏦 Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp"
 )
