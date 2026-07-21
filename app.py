@@ -22,7 +22,6 @@ initial_sidebar_state="expanded"
 
 default_values = {
 
-```
 # HỒ SƠ DOANH NGHIỆP
 "ten_dn": "",
 "ma_so": "",
