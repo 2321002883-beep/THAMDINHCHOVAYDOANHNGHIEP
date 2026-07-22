@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
+st.image("logo.png")
 
 # =========================================================
 # 2. KHỞI TẠO SESSION STATE
@@ -1549,4 +1549,3 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.image("logo.png")
