@@ -307,11 +307,11 @@ with st.sidebar:
     st.markdown(
         """
         <div class="sidebar-title">
-            🏦 THẨM ĐỊNH TÍN DỤNG
+            🏦 THẨM ĐỊNH CHO VAY DOANH NGHIỆP
         </div>
 
         <div class="sidebar-subtitle">
-            HỆ THỐNG HỖ TRỢ CHO VAY DOANH NGHIỆP
+            HỆ THỐNG HỖ TRỢ CHO VAY 
         </div>
         """,
         unsafe_allow_html=True
@@ -320,7 +320,7 @@ with st.sidebar:
     st.divider()
 
     menu = st.radio(
-        "📌 MENU CHÍNH",
+        "📌 DANH MỤC THẨM ĐỊNH",
         [
             "🏠 Tổng quan",
             "🏢 Hồ sơ & điều kiện",
