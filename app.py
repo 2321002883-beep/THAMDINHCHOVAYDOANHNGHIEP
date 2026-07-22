@@ -336,36 +336,28 @@ with st.sidebar:
 
 
 # =========================================================
-# 5. TỔNG QUAN
+# 5. TRANG TỔNG QUAN
 # =========================================================
 
 if menu == "🏠 Tổng quan":
 
     st.markdown(
         """
-        <div class="main-card">
-            <div class="welcome-title">
-                🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP
-            </div>
+        <div class="hero">
 
-            <div class="welcome-text">
-                Phân tích hồ sơ • Kiểm tra điều kiện vay •
-                Đánh giá tài chính • Khả năng trả nợ •
-                Tài sản bảo đảm • Tổng hợp kết quả
-            </div>
+        <h1>
+        🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP
+        </h1>
+
+        <p>
+        Phân tích hồ sơ • Đánh giá tài chính • Khả năng trả nợ
+        • Tài sản bảo đảm • Hỗ trợ quyết định tín dụng
+        </p>
+
         </div>
         """,
         unsafe_allow_html=True
     )
-
-    st.subheader("👋 Chào mừng bạn đến với hệ thống")
-
-    st.write(
-        "Ứng dụng hỗ trợ cán bộ/người sử dụng thực hiện "
-        "quy trình thẩm định sơ bộ hồ sơ vay vốn doanh nghiệp."
-    )
-
-    st.divider()
 
     st.subheader("📊 TRẠNG THÁI HỒ SƠ")
 
