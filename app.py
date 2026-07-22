@@ -1,18 +1,16 @@
 import streamlit as st
 import pandas as pd
 
-
 # =========================================================
-# 1. CẤU HÌNH TRANG
+# 1. CẤU HÌNH ỨNG DỤNG
 # =========================================================
 
 st.set_page_config(
-    page_title="Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp",
+    page_title="HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
 
 # =========================================================
 # 2. KHỞI TẠO SESSION STATE
