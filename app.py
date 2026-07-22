@@ -11,7 +11,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-st.image("logo.png")
 
 # =========================================================
 # 2. KHỞI TẠO SESSION STATE
@@ -339,7 +338,7 @@ with st.sidebar:
         "Phiên bản hỗ trợ thẩm định sơ bộ"
     )
 
-
+st.image("logo.png")
 # =========================================================
 # 5. TRANG TỔNG QUAN
 # =========================================================
