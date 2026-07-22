@@ -1,5 +1,7 @@
 streamlit
+yfinance
 pandas
-mysql-connector-python
-sqlalchemy
-pymysql
+numpy
+matplotlib
+mplfinance
+pymannkendall
