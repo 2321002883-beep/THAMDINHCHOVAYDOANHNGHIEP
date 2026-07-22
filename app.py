@@ -62,7 +62,6 @@ default_values = {
 "co_tsdb": "Chưa đánh giá",
 "gia_tri_tsdb": 0.0,
 "ltv": None
-```
 
 }
 
