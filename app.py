@@ -180,34 +180,108 @@ st.markdown(
 )
 
 
+
 # =========================================================
-# 4. SIDEBAR - CHỈ 4 MỤC
+# 4. SIDEBAR
 # =========================================================
 
 with st.sidebar:
 
-    st.title("🏦 THẨM ĐỊNH TÍN DỤNG")
+    # -----------------------------------------------------
+    # LOGO
+    # -----------------------------------------------------
 
-    st.caption(
-        "Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp"
+    try:
+
+        st.image(
+            "logo.jpg",
+            use_container_width=True
+        )
+
+    except:
+
+        st.markdown(
+            """
+            <div style="
+                text-align:center;
+                font-size:60px;
+                padding:15px;
+            ">
+                🏦
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+
+    # -----------------------------------------------------
+    # TÊN HỆ THỐNG
+    # -----------------------------------------------------
+
+    st.markdown(
+        """
+        <div style="
+            text-align:center;
+            padding:10px 5px 20px 5px;
+        ">
+
+            <div style="
+                font-size:21px;
+                font-weight:800;
+                line-height:1.5;
+                color:white;
+            ">
+                🏦 THẨM ĐỊNH CHO VAY
+                <br>
+                DOANH NGHIỆP
+            </div>
+
+            <div style="
+                font-size:14px;
+                font-weight:600;
+                color:#b9d7ef;
+                margin-top:8px;
+            ">
+                HỆ THỐNG HỖ TRỢ CHO VAY
+            </div>
+
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
+
     st.divider()
+
+
+    # -----------------------------------------------------
+    # MENU
+    # -----------------------------------------------------
+
+    st.markdown(
+        """
+        <div style="
+            font-size:17px;
+            font-weight:800;
+            margin-bottom:12px;
+        ">
+            📌 DANH MỤC THẨM ĐỊNH
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
     menu = st.radio(
-        "📌 DANH MỤC",
+        "Chọn nội dung",
         [
             "🏠 Tổng quan",
-            "🏢 Hồ sơ & Điều kiện vay",
-            "📊 Phân tích tài chính & Khoản vay",
-            "📋 Kết quả thẩm định"
-        ]
-    )
-
-    st.divider()
-
-    st.caption(
-        "Phiên bản hỗ trợ thẩm định sơ bộ"
+            "🏢 Hồ sơ & điều kiện",
+            "💰 Phân tích tài chính",
+            "💳 Khoản vay & bảo đảm",
+            "📊 Kết quả thẩm định"
+        ],
+        label_visibility="collapsed"
     )
 
 
