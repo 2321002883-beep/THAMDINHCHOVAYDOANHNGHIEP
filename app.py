@@ -313,12 +313,6 @@ with st.sidebar:
         ]
     )
 
-    st.divider()
-
-    st.caption(
-        "Phiên bản hỗ trợ thẩm định sơ bộ"
-    )
-
 
 # =========================================================
 # 5. TRANG CHỦ
