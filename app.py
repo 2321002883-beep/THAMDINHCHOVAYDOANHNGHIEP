@@ -338,8 +338,7 @@ if menu == "🏠 Trang chủ":
 
     st.write(
         """
-        Hệ thống hỗ trợ cán bộ tín dụng hoặc người sử dụng
-        thực hiện thẩm định sơ bộ hồ sơ vay vốn doanh nghiệp
+        Hệ thống hỗ trợ thẩm định sơ bộ hồ sơ vay vốn doanh nghiệp
         dựa trên thông tin pháp lý, tài chính, khoản vay,
         khả năng trả nợ và tài sản bảo đảm.
         """
