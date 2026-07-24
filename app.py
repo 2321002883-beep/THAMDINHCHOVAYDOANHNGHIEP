@@ -7,7 +7,7 @@ import pandas as pd
 # =========================================================
 
 st.set_page_config(
-    page_title="Thẩm định cho vay doanh nghiệp",
+    page_title="Hệ thống hỗ trợ thẩm định cho vay doanh nghiệp",
     page_icon="🏦",
     layout="wide",
     initial_sidebar_state="expanded"
