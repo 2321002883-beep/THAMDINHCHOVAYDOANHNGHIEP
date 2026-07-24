@@ -574,8 +574,6 @@ elif menu == "🏢 Hồ sơ & Điều kiện vay":
     st.info(
         """
         🔍 Đánh giá sơ bộ các điều kiện liên quan đến hồ sơ vay vốn.
-        Kết quả thực tế cần căn cứ hồ sơ pháp lý, phương án kinh doanh,
-        khả năng trả nợ và quy định nội bộ của tổ chức tín dụng.
         """
     )
 
