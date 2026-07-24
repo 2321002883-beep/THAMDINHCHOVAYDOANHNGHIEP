@@ -1423,7 +1423,6 @@ st.markdown(
     <div class="footer">
         Công cụ hỗ trợ phân tích và thẩm định sơ bộ hồ sơ tín dụng
         <br><br>
-        ⚠️ Kết quả chỉ mang tính chất tham khảo và hỗ trợ ra quyết định.
     </div>
     """,
     unsafe_allow_html=True
