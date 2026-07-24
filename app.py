@@ -311,10 +311,6 @@ if menu == "🏠 Tổng quan":
         """
         <div class="hero-card">
             <h1>🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP</h1>
-            <p>
-                Phân tích hồ sơ • Kiểm tra điều kiện vay •
-                Đánh giá tài chính • Khả năng trả nợ •
-                Tài sản bảo đảm • Tổng hợp kết quả
             </p>
         </div>
         """,
