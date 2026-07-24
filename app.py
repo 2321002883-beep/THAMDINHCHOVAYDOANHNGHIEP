@@ -1770,8 +1770,6 @@ st.markdown(
     """
     <div class="footer">
         🏦 Hệ thống hỗ trợ phân tích và thẩm định sơ bộ hồ sơ tín dụng doanh nghiệp
-        <br>
-        Phiên bản hỗ trợ nhập liệu và phân tích nội bộ
     </div>
     """,
     unsafe_allow_html=True
