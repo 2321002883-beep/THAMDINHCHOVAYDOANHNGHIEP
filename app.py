@@ -307,7 +307,6 @@ if menu == "🏠 Tổng quan":
         """
         <div class="hero-card">
             <h1>🏦 HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP</h1>
-            <p>Hệ thống hỗ trợ phân tích và thẩm định sơ bộ hồ sơ tín dụng doanh nghiệp.</p>
         </div>
         """,
         unsafe_allow_html=True
