@@ -301,13 +301,6 @@ with st.sidebar:
         label_visibility="collapsed"
     )
 
-    st.divider()
-
-    st.caption(
-        "Phiên bản hỗ trợ thẩm định sơ bộ"
-    )
-
-
 # =========================================================
 # 5. TRANG TỔNG QUAN
 # =========================================================
@@ -1428,8 +1421,6 @@ st.divider()
 st.markdown(
     """
     <div class="footer">
-        🏦 <b>HỆ THỐNG HỖ TRỢ THẨM ĐỊNH CHO VAY DOANH NGHIỆP</b>
-        <br>
         Công cụ hỗ trợ phân tích và thẩm định sơ bộ hồ sơ tín dụng
         <br><br>
         ⚠️ Kết quả chỉ mang tính chất tham khảo và hỗ trợ ra quyết định.
